@@ -3,6 +3,10 @@ import React, { Component } from "react";
 
 export default class ApplicationViews extends Component {
 
+  state = {
+    messages: []
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -34,7 +38,7 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show the user's tasks
           }}
         />
-        
+
       </React.Fragment>
     );
   }
