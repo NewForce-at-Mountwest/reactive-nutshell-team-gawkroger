@@ -42,13 +42,13 @@ export default class NewUserReg extends Component {
         } else if
             (this.state.userEmail === "") {
             window.alert("Please enter your email address")
-        } else if
-            (this.state.userPassword === "") {
-            window.alert("Please choose a valid password")
-        }
+        // } else if
+        //     (this.state.userPassword === "") {
+        //     window.alert("Please choose a valid password")
+        // }
 
 
-        else {
+        } else {
             const newUser = {
                 name: this.state.userName,
                 email: this.state.userEmail,
@@ -80,7 +80,7 @@ export default class NewUserReg extends Component {
                 sessionStorage.setItem(
                     "credentials",
                     JSON.stringify({
-                        email: this.state.email,
+                        email: this.state.userEmail,
                         userName: this.state.userName
                     }))
                 // this.goBack()
