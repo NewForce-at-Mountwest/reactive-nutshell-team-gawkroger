@@ -11,14 +11,20 @@ class NavBar extends Component {
                     <li className="nav-item">
                         <Link className="nav-link" to="/">News</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link className="nav-link" to="/friends">Friends</Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <Link className="nav-link" to="/messages">Messages</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/tasks">Tasks</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/events">Events</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/chat">Chat</Link>
                     </li>
                 </ul>
             </nav>
