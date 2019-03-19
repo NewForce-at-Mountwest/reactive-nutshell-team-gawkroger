@@ -68,7 +68,7 @@ export default class Login extends Component {
         return (
             <div>
             <form onSubmit={this.handleLogin}>
-                <h1>Roo's MF'n Ark</h1>
+                <h1>Reactive Nutshell - Team Gawkroger</h1>
                 <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
                 <br></br>
                 <label htmlFor="inputEmail">

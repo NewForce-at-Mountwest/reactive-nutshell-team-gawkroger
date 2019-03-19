@@ -1,6 +1,7 @@
 import React, { Component } from "react"
+import { Route, Redirect } from "react-router-dom";
 // import InputMask from 'react-input-mask';
-// import './login.css'
+import './login.css'
 import userAPIManager from './userManager'
 
 
@@ -34,6 +35,8 @@ export default class NewUserReg extends Component {
         window.history.back();
     }
 
+
+
     handleRegister = (e) => {
         e.preventDefault()
 
@@ -42,82 +45,73 @@ export default class NewUserReg extends Component {
         } else if
             (this.state.userEmail === "") {
             window.alert("Please enter your email address")
-        // } else if
-        //     (this.state.userPassword === "") {
-        //     window.alert("Please choose a valid password")
-        // }
+        } if
+            (this.state.userEmail !== "" && this.state.userName !== "")
+            var counter = 0;
+        userAPIManager.getAllUsers()
+            .then((au) => {
 
+                au.forEach((u) => {
 
-        } else {
-            const newUser = {
-                name: this.state.userName,
-                email: this.state.userEmail,
-                // password: this.state.userPassword
-                // Make sure the employeeId is saved to the database as a number since it is a foreign key.
-                // employeeId: parseInt(this.state.employeeId)
-            };
-            // this.props
-            // .addUser(newUser)
-            console.log(newUser)
-            // .then(() => this.props.history.push("/"));
-            userAPIManager.postUser(newUser)
+                    if (u.userName === this.state.userName || u.email === this.state.userEmail) {
+                        counter = counter + 1;
+                        alert("The username or email you entered has already been used, please choose a different username and email")
+                    }
+                })
 
-            // if (this.state.rememberMe === true) {
-            //     localStorage.setItem(
-            //         "credentials",
-            //         JSON.stringify({
-            //             email: this.state.email,
-            //             password: this.state.password
-            //         }))
-            //     sessionStorage.setItem(
-            //         "credentials",
-            //         JSON.stringify({
-            //             email: this.state.email,
-            //             password: this.state.password
-            //         }))
-            //     this.goBack()
-            // } else {
-                sessionStorage.setItem(
-                    "credentials",
-                    JSON.stringify({
+                //if username and email are unique then counter will be 0
+                if (counter < 1) {
+                    const newUser = {
+                        name: this.state.userName,
                         email: this.state.userEmail,
-                        userName: this.state.userName
-                    }))
-                // this.goBack()
-        }
-    };
+                        // password: this.state.userPassword
+                    }
+                    userAPIManager.postUser(newUser)
 
-    render() {
-        return (
-            <form onSubmit={this.handleRegister}>
-                <h1>Roo's MF'n Ark</h1>
-                <h2 className="h3 mb-3 font-weight-normal">Register New User</h2>
-                <br></br>
+                    sessionStorage.setItem(
+                        "credentials",
+                        JSON.stringify({
+                            email: this.state.userEmail,
+                            userName: this.state.userName
+                        }))
 
-                <label htmlFor="userName">
-                    User Name
-                </label>
-                <input onChange={this.handleFieldChange} type="text"
-                    id="userName"
-                    placeholder="User Name"
-                    required="" autoFocus="" />
-                <br></br>
+                        this.props.history.push("/news")
 
-                <label htmlFor="userEmail">
-                    Email Address
-                </label>
-                <input onChange={this.handleFieldChange} type="email"
-                    id="userEmail"
-                    placeholder="Email Address"
-                    required="" />
-                <br></br>
-                <br></br>
-                <br></br>
-
-                <button type="submit">
-                    Register New User
-                </button>
-            </form>
-        )
     }
+})
+            }
+
+render() {
+    return (
+        <form onSubmit={this.handleRegister}>
+            <h1>Reactive Nutshell - Team Gawkroger</h1>
+            <h2 className="h3 mb-3 font-weight-normal">Register New User</h2>
+            <br></br>
+
+            <label htmlFor="userName">
+                User Name
+                </label>
+            <input onChange={this.handleFieldChange} type="text"
+                id="userName"
+                placeholder="User Name"
+                required="" autoFocus="" />
+            <br></br>
+
+            <label htmlFor="userEmail">
+                Email Address
+                </label>
+            <input onChange={this.handleFieldChange} type="email"
+                id="userEmail"
+                placeholder="Email Address"
+                required="" />
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <button type="submit">
+                Register New User
+                </button>
+        </form>
+    )
+}
 }
