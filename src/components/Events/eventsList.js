@@ -1,63 +1,65 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-// import ResourceCard from '../generics/resourceCard';
+import EventCard from './eventCard';
 // import ResourceList from '../generics/resourceList';
-// import "./animal.css";
+import "./events.css";
 
 export default class EventList extends Component {
-//   state = {
-//     events: []
-//   };
-  render() {
-    return (
-      <React.Fragment>
-          <form className="eventForm">
-          <div className="form-group">
-            <label htmlFor="eventName">Event Name</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="eventName"
-              placeholder="Event Name"
-              size="30"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="eventDate">Event Date</label>
-            <input
-              type="date"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="eventDate"
-              placeholder="Event Date"
-              size="30"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="eventLocation">Event Location</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="eventLocation"
-              placeholder="Event Location"
-              size="30"
-            />
-          </div>
-          <button
-            type="submit"
-            onClick={this.constructNewAnimal}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </form>
+    //   state = {
+    //     events: []
+    //   };
+    render() {
+        return (
+            <React.Fragment>
+                <div className="addEventButton">
+                    <button type="button"
+                        className="btn btn-success"
+                        onClick={() => {
+                            this.props.history.push("events/new")
+                        }
+                        }>
+                        Add A New Event
+                    </button>
+                </div>
+                <br></br>
+                <section className="events">
+                    {this.props.events.map(event => (
+                        <EventCard key={event.id} event={event} deleteEvent={this.props.deleteEvent}/>
+                    ))}
+                </section>
 
-      </React.Fragment>
-    );
-  }
+            </React.Fragment>
+        );
+    }
 }
+
+
+{/* <section className="events">
+                    {
+                        this.props.events.map(event => {
+                            return (
+                                <div key={this.props.events.id} className="card">
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+
+                                            <p>{event.name}</p>
+                                            <p>{event.date}</p>
+                                            <p>{event.description}</p>
+
+                                            {/* <Link className="nav-link" to={`/${this.props.route}/${this.props.resource.id}`}>Details</Link> */}
+
+                //                             <button
+                //                                 className="btn btn-danger"
+                //                                 href="#"
+                //                                 onClick={() => this.props.deleteEvent(event.id)}
+                //                             >
+                //                                 Delete
+                //                         </button>
+                //                         </h5>
+                //                     </div>
+                //                 </div>
+                //             )
+                //         }
+                //         )
+                //     }
+                // </section> */}

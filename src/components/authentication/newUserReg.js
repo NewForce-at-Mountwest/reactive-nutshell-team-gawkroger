@@ -67,13 +67,10 @@ export default class NewUserReg extends Component {
                         // password: this.state.userPassword
                     }
                     userAPIManager.postUser(newUser)
-
-                    sessionStorage.setItem(
-                        "credentials",
-                        JSON.stringify({
-                            email: this.state.userEmail,
-                            userName: this.state.userName
-                        }))
+                    .then(pu => {
+                        console.log(pu)
+                        sessionStorage.setItem("userId", pu.id)
+                    })
 
                         this.props.history.push("/news")
 
