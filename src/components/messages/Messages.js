@@ -5,7 +5,9 @@ export default class MessagesList extends Component {
     render () {
         return (
             <React.Fragment>
+                 <div className="PastMessages">
                  <ul className="Messages-list">{messages.map(m => this.renderMessage(m))}</ul>
+                 </div>
             </React.Fragment>
         )
     }
