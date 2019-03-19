@@ -1,0 +1,36 @@
+.addEventButton{
+    margin-top:10vh;
+    text-align:center;
+}
+.events {
+    display: flex;
+    justify-content: space-evenly;
+    flex: wrap;
+}
+
+.icon--image {
+    width: 50px;
+    height: 50px;
+}
+
+.card {
+    margin-left:auto;
+    margin-right:auto;
+    width: 10rem;
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-link {
+    margin: 12px 0 0 0;
+    font-size: 0.7em;
+}
+
+.card-body {
+    text-align: center;
+}
