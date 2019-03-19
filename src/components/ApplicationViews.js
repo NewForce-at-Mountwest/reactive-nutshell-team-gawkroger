@@ -6,6 +6,7 @@ import TaskDetail from './task/TaskDetail';
 import TaskForm from './task/TaskForm';
 import TaskEditForm from './task/TaskEditForm';
 import TaskManager from "../modules/TaskManager";
+import EventList from '../components/Events/eventsList'
 
 export default class ApplicationViews extends Component {
   // Populating React Component State from an API...
@@ -52,84 +53,126 @@ export default class ApplicationViews extends Component {
     });
   }
 
+  state = {
+    users: [],
+    chats: [],
+    tasks: [],
+    events: [],
+    news: []
+  }
+
+  isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+
   render() {
     return (
       <React.Fragment>
 
+        <Route exact path="/"
+          render={props => {
+            return <NewUserReg {...props} />
+          }} />
+
         <Route
-          exact path="/" render={props => {
-            return null
-            // Remove null and return the component which will show news articles
-          }}
-        />
+          path="/news" render={props => {
+            if (this.isAuthenticated()) {
+              return null
+              // Remove null and return the component which will show the user's tasks
+            } else {
+              return <Redirect to="/" />
+            }
+          }} />
+        {/* Remove null and return the component which will show news articles */}
 
         <Route
           path="/friends" render={props => {
-            return null
-            // Remove null and return the component which will show list of friends
+            if (this.isAuthenticated()) {
+              return null
+              // Remove null and return the component which will show list of friends
+            } else {
+              return <Redirect to="/" />
+            }
           }}
         />
 
         <Route
           path="/messages" render={props => {
-            return null
-            // Remove null and return the component which will show the messages
+            if (this.isAuthenticated()) {
+              return null
+              // Remove null and return the component which will show the messages
+            } else {
+              return <Redirect to="/" />
+            }
           }}
         />
 
         <Route
           exact path="/tasks" render={props => {
-            return <TaskList
-              {...props}
-              deleteTask={this.deleteTask}
-              tasks={this.state.tasks}
-            />
-          }} />
-        <Route exact path="/tasks/:taskId(\d+)"
-          render={props => {
-            return (
-              <TaskDetail
+            if (this.isAuthenticated()) {
+              return <TaskList
                 {...props}
                 deleteTask={this.deleteTask}
                 tasks={this.state.tasks}
               />
-            );
+            } else {
+              return <Redirect to="/" />
+            }
           }} />
+        <Route exact path="/tasks/:taskId(\d+)"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return (
+                <TaskDetail
+                  {...props}
+                  deleteTask={this.deleteTask}
+                  tasks={this.state.tasks}
+                />
+              );
+            } else {
+              return <Redirect to="/" />
+            }
+          }} />
+
         <Route path="/tasks/new"
           render={props => {
-            return (
-              <TaskForm
-                {...props}
-                addTask={this.addTask}
-              />
-            );
+            if (this.isAuthenticated()) {
+              return (
+                <TaskForm
+                  {...props}
+                  addTask={this.addTask}
+                />
+              );
+            } else {
+              return <Redirect to="/" />
+            }
           }} />
         <Route
           path="/tasks/:taskId(\d+)/edit"
           render={props => {
-            return <TaskEditForm
-              {...props}
-              updateTask={this.updateTask} />
+            if (this.isAuthenticated()) {
+              return <TaskEditForm
+                {...props}
+                updateTask={this.updateTask} />
+            } else {
+              return <Redirect to="/" />
+            }
           }}
-        />
-        <Route
-          path="/events" render={props => {
-            return null
-            // Remove null and return the component which will show the user's tasks
-          }}
-        />
-        {/* <Route
-          path="/login" render={props => {
-            return null
-            // Remove null and return the component which will show the user's tasks
-          }} */}
-        <Route exact path="/"
-          // component={Login}
-          render={props => {
-            return <NewUserReg {...props} />
-          }} />
         />
 
+        <Route
+          path="/events" render={props => {
+            return <Route exact path="/events" render={(props) => {
+              if (this.isAuthenticated()) {
+                return <EventList {...props} events={this.state.events}
+                // key={this.state.animals.id} resources={this.state.animals} pr="animals" sr="animal" route="animals"
+                />
+              } else {
+                return <Redirect to="/" />
+              }
+            }
+            } />
+            // Remove null and return the component which will show the user's tasks
+          }}
+        />
       </React.Fragment>
     );
   }
