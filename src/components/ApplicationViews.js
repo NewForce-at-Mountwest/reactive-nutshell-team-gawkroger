@@ -6,7 +6,10 @@ export default class ApplicationViews extends Component {
 
   state = {
     messages: []
-  }
+  };
+
+  isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+
 
   render() {
     return (
@@ -28,8 +31,12 @@ export default class ApplicationViews extends Component {
 
         <Route
           path="/messages" render={props => {
-            return null
-            // Remove null and return the component which will show the messages
+            if (this.isAuthenticated()) {
+              return <MessageList {...props} animals={this.state.animals} />;
+            } else {
+              return <Redirect to="/login" />;
+            }
+
           }}
         />
 
