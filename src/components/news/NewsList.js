@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NewsCard from "./NewsCard"
 
 export default class NewsList extends Component {
     render () {
@@ -16,7 +17,7 @@ return (
        </div>
        <section className="news">
        {this.props.news.map(singleNewsArticle => (
-           <newsCard key={singleNewsArticle.id} news={singleNewsArticle} />
+           <NewsCard key={singleNewsArticle.id} news={singleNewsArticle} />
 
        ))}
 

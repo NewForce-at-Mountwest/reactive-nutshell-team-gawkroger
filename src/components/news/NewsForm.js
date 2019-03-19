@@ -25,9 +25,10 @@ export default class NewsForm extends Component {
         .addNews(news)
         .then(() => this.props.history.push("/news"));
     }
-}
+
 
 render() {
+    return(
     <React.Fragment>
         <form className="newsForm">
         <div className="form-group">
@@ -53,7 +54,7 @@ render() {
         />
         </div>
         <div className="form-group">
-        <lable htmlFor="newsURL">URL</lable>
+        <label htmlFor="newsURL">URL</label>
         <input
             type="url"
             required
@@ -65,13 +66,13 @@ render() {
         </div>
         <button
             type="submit"
-            onClick="this.buildNewsArticle"
+            onClick={this.buildNewsArticle}
             className="btn btn-primary"
         >
         Submit
         </button>
-
-
         </form>
     </React.Fragment>
-}
+
+    )}
+    }
