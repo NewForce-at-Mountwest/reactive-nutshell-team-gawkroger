@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./events.css";
-import eventsAPIManager from './eventsAPIMananger'
+import eventsAPIManager from './eventsAPIManager'
 
 export default class EventForm extends Component {
     // Set initial state
@@ -72,7 +72,7 @@ export default class EventForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="eventDescription">Event Name</label>
+                        <label htmlFor="eventDescription">Event Description</label>
                         <input
                             type="textarea"
                             required
