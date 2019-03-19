@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 // import ResourceCard from '../generics/resourceCard';
 // import ResourceList from '../generics/resourceList';
-// import "./animal.css";
+import "./events.css";
 
 export default class EventList extends Component {
 //   state = {
@@ -11,7 +11,17 @@ export default class EventList extends Component {
   render() {
     return (
       <React.Fragment>
-          <form className="eventForm">
+          <div className="addEventButton">
+                    <button type="button"
+                        className="btn btn-success"
+                        onClick={() => {
+                            this.props.history.push("events/new")
+                        }
+                        }>
+                        Add A New Event
+                    </button>
+                </div>
+          {/* <form className="eventForm">
           <div className="form-group">
             <label htmlFor="eventName">Event Name</label>
             <input
@@ -55,7 +65,7 @@ export default class EventList extends Component {
           >
             Submit
           </button>
-        </form>
+        </form> */}
 
       </React.Fragment>
     );

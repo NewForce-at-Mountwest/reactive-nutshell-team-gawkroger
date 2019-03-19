@@ -2,6 +2,7 @@ import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
 import NewUserReg from '../components/authentication/newUserReg'
 import EventList from '../components/Events/eventsList'
+import EventForm from '../components/Events/eventForm'
 
 export default class ApplicationViews extends Component {
 
@@ -68,9 +69,7 @@ export default class ApplicationViews extends Component {
           }}
         />
 
-        <Route
-          path="/events" render={props => {
-            return <Route exact path="/events" render={(props) => {
+        <Route exact path="/events" render={(props) => {
               if (this.isAuthenticated()) {
                 return <EventList {...props} events={this.state.events}
                 // key={this.state.animals.id} resources={this.state.animals} pr="animals" sr="animal" route="animals"
@@ -78,23 +77,16 @@ export default class ApplicationViews extends Component {
               } else {
                 return <Redirect to="/" />
               }
-            }
-            } />
-            // Remove null and return the component which will show the user's tasks
-          }}
-        />
-        <Route
-          path="/chat" render={props => {
-            return <Route exact path="/chat" render={(props) => {
-              if (this.isAuthenticated()) {
-                return null
+            }} />
 
+          <Route path="/events/new" render={(props) => {
+              if (this.isAuthenticated()) {
+                  return <EventForm {...props}
+                      events={this.state.events} />
               } else {
-                return <Redirect to="/" />
+                  return <Redirect to="/" />
               }
-            }
-            } />
-          }}/>
+          }} />
 
       </React.Fragment>
     );
