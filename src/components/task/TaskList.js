@@ -22,7 +22,7 @@ export default class TaskList extends Component {
                 this.props.history.push("/tasks/new");
               }}
             >
-              <i className="material-icons md-18">add</i>Add Task
+              <i className="material-icons md-18">note_add</i>  Add Task
               </button>
           </div>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
