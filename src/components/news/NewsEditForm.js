@@ -20,7 +20,7 @@ export default class NewsEditForm extends Component {
             id: this.props.match.params.newsId,
             title: this.state.newsTitle,
             synopsis: this.state.newsSynopsis,
-            URL: this.state.newsURL
+            url: this.state.newsURL
         }
         this.props
         .updateNews(editedNews)
