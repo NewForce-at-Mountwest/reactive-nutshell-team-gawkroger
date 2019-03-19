@@ -6,7 +6,7 @@ export default {
         .then(messages => messages.json()
         );
     },
-    postNewMessage (newMessage) {
+    postMessage (newMessage) {
         return fetch(`${remoteURL}/messages`,{
             method: "POST",
             headers: {

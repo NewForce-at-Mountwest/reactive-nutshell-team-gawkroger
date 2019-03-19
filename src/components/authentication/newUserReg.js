@@ -66,6 +66,7 @@ export default class NewUserReg extends Component {
                         email: this.state.userEmail,
                         // password: this.state.userPassword
                     }
+                    console.log(newUser)
                     userAPIManager.postUser(newUser)
 
                     sessionStorage.setItem(

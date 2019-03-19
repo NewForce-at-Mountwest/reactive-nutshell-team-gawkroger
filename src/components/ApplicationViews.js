@@ -1,11 +1,15 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import NewUserReg from '../components/authentication/newUserReg'
+import NewUserReg from '../components/authentication/newUserReg';
 import NewsForm from "./news/NewsForm";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
-import NewsList from "./news/NewsList"
-import EventList from '../components/Events/eventsList'
+import NewsList from "./news/NewsList";
+import EventList from '../components/Events/eventsList';
+
+//// Messages imports ////
+import MessagesList from "./messages/MessagesList"
+import MessagesManager from "../modules/MessagesManager"
 
 export default class ApplicationViews extends Component {
 
@@ -44,11 +48,38 @@ export default class ApplicationViews extends Component {
       }))
   }
 
+  ///////Messages Components//////
+
+  addMessage = messageObject =>
+    MessagesManager.postMessage(messageObject)
+      .then(() => MessagesManager.getAllMessages())
+      .then(messages =>
+        this.setState({
+          messages: messages
+        })
+      // .then(MessagesManager.getAllMessages)
+      );
+
+  updateMessages = editedMessageObject => {
+        return MessagesManager.put(editedMessageObject)
+          .then(() => MessagesManager.getAll())
+          .then(messages => {
+            this.setState({
+              messages: messages
+            });
+          });
+      };
+
+  //////////////////////////////////////
   componentDidMount() {
     const newState ={};
     newsManager.getAll()
       .then(news => (newState.news = news))
+      .then(MessagesManager.getAllMessages)
+      .then(messages => (newState.messages = messages))
       .then(() => this.setState(newState))
+
+
   }
 
 
@@ -105,7 +136,7 @@ export default class ApplicationViews extends Component {
         <Route
           path="/messages" render={props => {
             if (this.isAuthenticated()) {
-              return <MessageList {...props} messages={this.state.messages} />;
+              return <MessagesList {...props} messages={this.state.messages} addMessage={this.addMessage} updateMessages={this.updateMessages} />;
             } else {
               return <Redirect to="/" />
             }
@@ -138,19 +169,6 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show the user's tasks
           }}
         />
-        <Route
-          path="/chat" render={props => {
-            return <Route exact path="/chat" render={(props) => {
-              if (this.isAuthenticated()) {
-                return null
-
-              } else {
-                return <Redirect to="/" />
-              }
-            }
-            } />
-          }}/>
-
 
       </React.Fragment>
     );
