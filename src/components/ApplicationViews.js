@@ -9,7 +9,7 @@ import EventList from '../components/Events/eventsList';
 
 //// Messages imports ////
 import MessagesList from "./messages/MessagesList"
-import MessagesManager from "../modules/MessagesManager"
+import MessagesManager from "../modules/messagesManager"
 
 export default class ApplicationViews extends Component {
 
