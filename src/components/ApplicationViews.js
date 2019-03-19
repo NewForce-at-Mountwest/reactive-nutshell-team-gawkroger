@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NewUserReg from '../components/authentication/newUserReg'
 import userManager from "./authentication/userManager";
 import NewsForm from "./news/NewsForm";
+import NewsDetail from "./news/NewsDetail";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
 import NewsList from "./news/NewsList"
