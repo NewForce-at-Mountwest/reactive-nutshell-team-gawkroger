@@ -33,8 +33,8 @@ export default class EventForm extends Component {
             const newEvent = {
                 name: this.state.eventName,
                 date: this.state.eventDate,
-                description: this.state.eventDescription
-
+                description: this.state.eventDescription,
+                userId: sessionStorage.getItem("userId")
             };
 
             //   console.log(newEvent)

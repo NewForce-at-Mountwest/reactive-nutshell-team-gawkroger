@@ -48,7 +48,7 @@ export default class ApplicationViews extends Component {
         }))
   }
 
-  isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   componentDidMount() {
     const newState = {};

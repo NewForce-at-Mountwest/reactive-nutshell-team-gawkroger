@@ -68,7 +68,6 @@ export default class NewUserReg extends Component {
                     }
                     userAPIManager.postUser(newUser)
                     .then(pu => {
-                        console.log(pu)
                         sessionStorage.setItem("userId", pu.id)
                     })
 
