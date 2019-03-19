@@ -1,0 +1,8 @@
+.newsButton {
+    margin-top: 3em;
+    background-color: steelblue;
+    width: 8em;
+    border: solid 2px black;
+    box-shadow: 1px;
+    font: bold;
+}
