@@ -1,8 +1,29 @@
-.newsButton {
+.news-section{
     margin-top: 3em;
-    background-color: steelblue;
-    width: 8em;
-    border: solid 2px black;
-    box-shadow: 1px;
+    overflow: hidden;
+    max-height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+
+.newsButton {
+
+    margin-top: 3em;
+    width: 5em;
+    box-shadow: 2px;
+    justify-content: space-evenly;
     font: bold;
+
+}
+.mng-link {
+    background-color: rgb(54, 79, 100);
+    width: 6em;
+    height: 2.5em;
 }
