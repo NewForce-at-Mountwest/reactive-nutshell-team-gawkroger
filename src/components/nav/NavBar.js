@@ -12,8 +12,8 @@ export default class NavBar extends Component {
             <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
                 <ul className="nav nav-pills">
                     <li className="nav-item">
-                        {sessionStorage.getItem("credentials") === null &&
-                            localStorage.getItem("credentials") === null
+                        {sessionStorage.getItem("userId") === null &&
+                            localStorage.getItem("userId") === null
                             ? (
                                 <Link className="nav-link" to="/">
                                     Sign In
