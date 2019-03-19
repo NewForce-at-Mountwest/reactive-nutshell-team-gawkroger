@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsCard from "./NewsCard"
+import "./news.css"
 
 export default class NewsList extends Component {
     render () {
@@ -7,7 +8,7 @@ return (
     <React.Fragment>
        <div className="newsButton">
         <button type="button"
-        className="btn btn-pprimary"
+        className="btn btn-pprimary news-btn"
         onClick={() => {
             this.props.history.push("/news/new");
         }}

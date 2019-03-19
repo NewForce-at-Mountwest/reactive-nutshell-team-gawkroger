@@ -1,14 +1,14 @@
 const remoteURL = "http://localhost:5002"
 
 export default {
-    getAllEmployees: () => {
-        return fetch("http://localhost:5002/employees")
-            .then(employees => employees.json())
+    getAllUsers: () => {
+        return fetch("http://localhost:5002/users")
+            .then(au => au.json())
     },
 
-    getSingleEmployee: (employeeId) => {
-        return fetch(`${remoteURL}/employees/${employeeId}`)
-            .then(singleEmployee => singleEmployee.json())
+    getSingleUser: (userId) => {
+        return fetch(`${remoteURL}/users/${userId}`)
+            .then(su => su.json())
     },
 
     postUser: (newUser) => {
@@ -19,5 +19,15 @@ export default {
             },
             body: JSON.stringify(newUser)
         }).then(u => u.json())
+    },
+
+    checkUserName: (userName) => {
+        return fetch(`${remoteURL}/users?name=${userName}`)
+           .then(u => u.json())
+    },
+
+    checkUserEmail: (userEmail) => {
+        return fetch(`${remoteURL}/users?email=${userEmail}`)
+           .then(u => u.json())
     }
 }
