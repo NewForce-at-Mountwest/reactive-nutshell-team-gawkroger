@@ -30,6 +30,8 @@ export default {
         }).then(data => data.json())
     },
 
+
+
     deleteNews: id => {
         return fetch(`${remoteURL}/news/${id}`, {
             method: "DELETE"
@@ -38,4 +40,4 @@ export default {
         .then(e => e.json())
     }
 
-}
+};

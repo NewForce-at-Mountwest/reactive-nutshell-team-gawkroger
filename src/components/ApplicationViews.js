@@ -6,13 +6,19 @@ import TaskDetail from './task/TaskDetail';
 import TaskForm from './task/TaskForm';
 import TaskEditForm from './task/TaskEditForm';
 import TaskManager from "../modules/TaskManager";
+import userManager from "./authentication/userManager";
 import NewsForm from "./news/NewsForm";
+import NewsDetail from "./news/NewsDetail";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
 import NewsList from "./news/NewsList"
 import EventList from '../components/Events/eventsList'
+import EventForm from '../components/Events/eventForm'
+import EventEditForm from '../components/Events/eventEditForm'
+import eventsAPIManager from '../components/Events/eventsAPIManager'
 
 export default class ApplicationViews extends Component {
+
   // Populating React Component State from an API...
   state = {
     // Render the component to the DOM without any data.
@@ -25,6 +31,8 @@ export default class ApplicationViews extends Component {
     events: []
     // Populate the API from JSON (why the arrays / data structure are empty, above).
   };
+
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   deleteTask = id => {
     return fetch(`http://localhost:5002/tasks/${id}`, {
@@ -57,74 +65,128 @@ export default class ApplicationViews extends Component {
         news: news
       })
     );
-  }
+  };
 
   addNews = newsObject => {
     return newsManager.addNews(newsObject)
-    .then(()=> newsManager.getAll())
-    .then(news =>
-      this.setState({
-        news: news
-      })
-    );
+      .then(() => newsManager.getAll())
+      .then(news =>
+        this.setState({
+          news: news
+        })
+      );
   }
 
   updateNews = editedNewsObeject => {
     return newsManager.updateNews(editedNewsObeject)
-    .then(() => newsManager.getAll())
-    .then(news =>
-      this.setState({
-        news: news
-      }))
-  }
+      .then(() => newsManager.getAll())
+      .then(news =>
+        this.setState({
+          news: news
+        })
+      );
+  };
 
   componentDidMount() {
+
     TaskManager.getAll().then(allTasks => {
       this.setState({ tasks: allTasks });
     });
+
     const newState ={};
     newsManager.getAll()
       .then(news => (newState.news = news))
+      .then(userManager.getAllUsers)
+      .then(users => (newState.users = users))
+      .then(eventsAPIManager.getAllEvents)
+      .then(events => (newState.events = events))
       .then(() => this.setState(newState))
   }
 
-  isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+  updateEvent = editedEvent => {
+    return eventsAPIManager.putEvent(editedEvent)
+      .then(() => eventsAPIManager.getAllEvents())
+      .then(events => {
+        this.setState({
+          events: events
+        });
+      });
+  };
+
+  deleteEvent = id => {
+    return eventsAPIManager.deleteEvent(id)
+    .then(events =>
+      this.setState({
+        events: events
+      })
+    );
+  };
 
   // isCompleted = () => sessionStorage.getItem("credentials") !== null
 
   render() {
     return (
       <React.Fragment>
-
-        <Route exact path="/"
+        <Route
+          exact
+          path="/"
           render={props => {
-            return <NewUserReg {...props} />
-          }} />
+            return <NewUserReg {...props} />;
+          }}
+        />
 
         <Route
           exact
           path="/news"
           render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsList {...props} news={this.state.news} />
+            if (this.isAuthenticated()) {
+              return <NewsList {...props} news={this.state.news} />
+            } else {
+              return <Redirect to="/" />
+            }
           }}
-        // }
         />
         <Route
           path="/news/new"
           render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsForm {...props} addNews={this.addNews} />
+            if (this.isAuthenticated()) {
+              return <NewsForm {...props} addNews={this.addNews} />
+            } else {
+              return <Redirect to="/" />
+            }
           }}
-        // }
         />
         <Route
-          path="/news/newsId(\d+)/edit"
+          exact
+          path="/news/:newsId(\d+)"
           render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsEditForm {...props} updateNews={this.updateNews} />
+            if (this.isAuthenticated()) {
+              return (
+                <NewsDetail
+                  {...props}
+                  deleteNews={this.deleteNews}
+                  news={this.state.news}
+                />
+              )
+            } else {
+              return <Redirect to="/" />
+            }
           }}
-        // }
+        />
+        <Route
+          path="/news/:newsId(\d+)/edit"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return (
+                <NewsEditForm {...props}
+                updateNews={this.updateNews}
+                news={this.state.news}
+                />
+              )
+            } else {
+              return <Redirect to="/" />
+            }
+          }}
         />
 
         <Route
@@ -139,9 +201,10 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
-          path="/messages" render={props => {
+          path="/messages"
+          render={props => {
             if (this.isAuthenticated()) {
-              return null
+              return null;
               // Remove null and return the component which will show the messages
             } else {
               return <Redirect to="/" />
@@ -197,24 +260,39 @@ export default class ApplicationViews extends Component {
                 {...props}
                 updateTask={this.updateTask} />
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
 
+        <Route exact path="/events" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <EventList {...props} events={this.state.events} deleteEvent={this.deleteEvent}/>
+
+          } else {
+            return <Redirect to="/" />
+          }
+        }} />
+
+        <Route path="/events/new" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <EventForm {...props}
+              events={this.state.events} />
+          } else {
+            return <Redirect to="/" />
+          }
+        }} />
+
         <Route
-          path="/events" render={props => {
-            return <Route exact path="/events" render={(props) => {
-              if (this.isAuthenticated()) {
-                return <EventList {...props} events={this.state.events}
-                // key={this.state.animals.id} resources={this.state.animals} pr="animals" sr="animal" route="animals"
-                />
-              } else {
-                return <Redirect to="/" />
-              }
-            }
-            } />
-            // Remove null and return the component which will show the user's tasks
+          path="/events/:eventId(\d+)/edit"
+          render={props => {
+            return (
+              <EventEditForm
+                {...props}
+                events={this.state.events}
+                updateEvent={this.updateEvent}
+              />
+            );
           }}
         />
 

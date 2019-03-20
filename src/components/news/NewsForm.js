@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./news.css";
 
 export default class NewsForm extends Component {
     state = {
