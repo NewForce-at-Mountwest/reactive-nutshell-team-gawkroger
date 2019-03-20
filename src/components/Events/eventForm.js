@@ -7,7 +7,7 @@ export default class EventForm extends Component {
     state = {
         eventName: "",
         eventDate: "",
-        eventDescription: ""
+        eventLocation: ""
     };
 
     // Update state whenever an input field is edited (USED ALMOST EVERY TIME A FORM IS IN REACT!!!!)
@@ -19,10 +19,6 @@ export default class EventForm extends Component {
         this.setState(stateToChange);
     };
 
-    /*
-          Local method for validation, creating animal object, and
-          invoking the function reference passed from parent component
-       */
     buildNewEvent = evt => {
         evt.preventDefault();
         if (this.state.eventName === "") {
@@ -33,14 +29,13 @@ export default class EventForm extends Component {
             const newEvent = {
                 name: this.state.eventName,
                 date: this.state.eventDate,
-                description: this.state.eventDescription,
+                location: this.state.eventLocation,
                 userId: sessionStorage.getItem("userId")
             };
 
-            //   console.log(newEvent)
+              console.log(newEvent)
 
-            // this.props
-            eventsAPIManager.postEvent(newEvent)
+            this.props.postEvent(newEvent)
                 .then(() => this.props.history.push("/events"));
         }
     };
@@ -72,14 +67,14 @@ export default class EventForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="eventDescription">Event Description</label>
+                        <label htmlFor="eventLocation">Event Location</label>
                         <input
-                            type="textarea"
+                            type="text"
                             required
                             className="form-control"
                             onChange={this.handleFieldChange}
-                            id="eventDescription"
-                            placeholder="Event Description"
+                            id="eventLocation"
+                            placeholder="Event Location"
                         />
                     </div>
                     <button

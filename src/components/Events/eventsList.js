@@ -8,16 +8,16 @@ import "./events.css";
 
 export default class EventList extends Component {
 
-state = {
-    userEvents: []
-}
+// state = {
+//     userEvents: []
+// }
 
-componentDidMount() {
-    const newState = {};
-    eventsAPIManager.getUserEvents(sessionStorage.getItem("userId"))
-        .then (ua => (newState.userEvents = ua))
-        .then (() => this.setState(newState))
-}
+// componentDidMount() {
+//     const newState = {};
+//     eventsAPIManager.getUserEvents(sessionStorage.getItem("userId"))
+//         .then (ua => (newState.userEvents = ua))
+//         .then (() => this.setState(newState))
+// }
 
     render() {
         return (
@@ -26,7 +26,7 @@ componentDidMount() {
                     <button type="button"
                         className="btn btn-success"
                         onClick={() => {
-                            this.props.history.push("events/new")
+                            this.props.history.push("/Events/new")
                         }
                         }>
                         Add A New Event
@@ -34,8 +34,8 @@ componentDidMount() {
                 </div>
                 <br></br>
                 <section className="events">
-                    {this.state.userEvents.map(event => (
-                        <EventCard key={event.id} event={event} deleteEvent={this.props.deleteEvent}/>
+                    {this.props.events.map(event => (
+                        <EventCard key={event.id} event={event} deleteEvent={this.props.deleteEvent} {...this.props} />
                     ))}
                 </section>
 

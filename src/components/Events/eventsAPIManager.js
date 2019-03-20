@@ -23,7 +23,10 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newEvent)
-        }).then(e => e.json())
+
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
     },
 
     putEvent: (editedEvent) => {
@@ -33,13 +36,18 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(editedEvent)
-        }).then(e => e.json())
+
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
     },
 
     deleteEvent: (eventId) => {
         return fetch(`${remoteURL}/events/${eventId}`, {
             method: "DELETE",
 
-        }).then(e => e.json())
-    },
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
+    }
 }
