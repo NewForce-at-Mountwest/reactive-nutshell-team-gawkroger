@@ -2,7 +2,7 @@ const remoteURL = "http://localhost:5002"
 
 export default {
     getAllMessages: () => {
-        return fetch(`${remoteURL}/messages`)
+        return fetch(`${remoteURL}/messages?_expand=user`)
         .then(messages => messages.json()
         );
     },
@@ -15,7 +15,7 @@ export default {
             body: JSON.stringify(newMessage)
         }).then(data => data.json())
     },
-    getOneMaessage: id =>
+    getOneMessage: id =>
     fetch(`${remoteURL}/messages/${id}`).then(message => message.json()),
     put(editedMessage) {
         return fetch(`${remoteURL}/messages/${editedMessage.id}`, {

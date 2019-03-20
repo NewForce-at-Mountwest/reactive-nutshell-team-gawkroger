@@ -3,7 +3,9 @@ import React from "react";
 
 export default class MessagesList extends Component {
     state = {
-        message: ""
+        message: "",
+        userId: "",
+        userMessage: ""
     };
 
     handleFieldChange = evt => {
@@ -15,10 +17,14 @@ export default class MessagesList extends Component {
     constructNewMessage = evt => {
         evt.preventDefault();
         const message = {
-            message: this.state.userMessage
+            message: this.state.userMessage,
+            userId: parseInt(sessionStorage.getItem(`userId`))
             };
             this.props.addMessage(message)
+            .then(this.setState({userMessage:""}))
         }
+
+    ed
 
     render() {
         return (
@@ -27,8 +33,19 @@ export default class MessagesList extends Component {
                     <h1>Message History</h1>
                     <ul className="MessageList">
                         {this.props.messages.map(singleMessage => {
-                            return <p key={singleMessage.id}>{singleMessage.name}:{singleMessage.message}</p>
-                        })}
+                            const sessionId = parseInt(sessionStorage.getItem(`userId`));
+                            if(singleMessage.userId === sessionId){
+                            return <p key={singleMessage.id}>{singleMessage.user.name}:{singleMessage.message}
+                            <button
+                            type="submit"
+                            onClick={this.constructNewMessage}
+                            className="btn btn-primary">
+                            Edit
+                          </button></p>
+                        }
+                        else {
+                            return <p className={singleMessage.id} key={singleMessage.id}>{singleMessage.user.name}:{singleMessage.message}</p>
+                        }})}
                     </ul>
                 </div>
                 <div className="NewMessage">
@@ -38,6 +55,7 @@ export default class MessagesList extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="userMessage"
+              value={this.state.userMessage}
               placeholder="Enter your message here"
             />
                 </div>
