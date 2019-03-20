@@ -21,7 +21,7 @@ export default class ApplicationViews extends Component {
     news: []
   };
 
-  isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   deleteNews = id => {
     return newsManager.deleteNews(id).then(news =>
@@ -98,7 +98,9 @@ export default class ApplicationViews extends Component {
           path="/news"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsList {...props} news={this.state.news} />;
+              return <NewsList {...props} news={this.state.news} />
+            } else {
+              return <Redirect to="/" />
             }
           }}
         />
@@ -106,7 +108,9 @@ export default class ApplicationViews extends Component {
           path="/news/new"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsForm {...props} addNews={this.addNews} />;
+              return <NewsForm {...props} addNews={this.addNews} />
+            } else {
+              return <Redirect to="/" />
             }
           }}
         />
@@ -121,7 +125,9 @@ export default class ApplicationViews extends Component {
                   deleteNews={this.deleteNews}
                   news={this.state.news}
                 />
-              );
+              )
+            } else {
+              return <Redirect to="/" />
             }
           }}
         />
@@ -134,7 +140,9 @@ export default class ApplicationViews extends Component {
                 updateNews={this.updateNews}
                 news={this.state.news}
                 />
-              );
+              )
+            } else {
+              return <Redirect to="/" />
             }
           }}
         />
@@ -144,8 +152,6 @@ export default class ApplicationViews extends Component {
             if (this.isAuthenticated()) {
               return null
               // Remove null and return the component which will show list of friends
-            } else {
-              return <Redirect to="/" />
             }
           }}
         />
