@@ -19,7 +19,7 @@ export default class ApplicationViews extends Component {
     // Empty out current hard-coded state in the ApplicationViews component:
     // Reconfigure it to query the entire API and populate this data structure.
     users: [],
-    chat: [],
+    messages: [],
     news: [],
     tasks: [],
     events: []
@@ -51,19 +51,6 @@ export default class ApplicationViews extends Component {
       });
   };
 
-  componentDidMount() {
-    TaskManager.getAll().then(allTasks => {
-      this.setState({ tasks: allTasks });
-    });
-  }
-
-  state = {
-    chats: [],
-    tasks: [],
-    events: [],
-    news: []
-  }
-
   deleteNews = id => {
     return newsManager.deleteNews(id).then(news =>
       this.setState({
@@ -92,16 +79,18 @@ export default class ApplicationViews extends Component {
   }
 
   componentDidMount() {
+    TaskManager.getAll().then(allTasks => {
+      this.setState({ tasks: allTasks });
+    });
     const newState ={};
     newsManager.getAll()
       .then(news => (newState.news = news))
       .then(() => this.setState(newState))
   }
 
-
-
-
   isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+
+  // isCompleted = () => sessionStorage.getItem("credentials") !== null
 
   render() {
     return (

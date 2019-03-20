@@ -5,13 +5,18 @@ import './Task.css';
 
 export default class TaskList extends Component {
   render() {
+    var props = this.props;
     return (
       <React.Fragment>
         <section className="my-5">
-          <h2 className="h1-responsive font-weight-bold text-center my-5">List of Tasks:</h2>
+          <h2 className="h1-responsive font-weight-bold text-center my-5"><i className="material-icons md-48">menu</i> List of Tasks:</h2>
           <section className="tasks">
-            {this.props.tasks.map(task => (
-              <TaskCard key={task.id} task={task} {...this.props} />
+            {props.tasks
+            .filter(function(task) {
+              return task.isCompleted === undefined;
+            })
+            .map(task => (
+              <TaskCard key={task.id} task={task} {...props} />
             ))}
           </section>
           <div className="taskButton">
