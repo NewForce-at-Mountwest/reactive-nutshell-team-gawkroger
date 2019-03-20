@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import newsManager from "../../modules/newsManager"
+import newsManager from "../../modules/newsManager";
+import "./news.css";
+
 export default class NewsEditForm extends Component {
 
     state = {
@@ -39,7 +41,7 @@ export default class NewsEditForm extends Component {
 
     render() {
         return (
-        <React.Fragmemnt>
+        <React.Fragment>
         <form className="newsForm">
         <div className="form-group">
         <label htmlFor="newsTitle">News Headline</label>
@@ -64,7 +66,7 @@ export default class NewsEditForm extends Component {
         />
         </div>
         <div className="form-group">
-        <lable htmlFor="newsURL">URL</lable>
+        <label htmlFor="newsURL">URL</label>
         <input
             type="url"
             required
@@ -82,7 +84,7 @@ export default class NewsEditForm extends Component {
         Submit
         </button>
         </form>
-        </React.Fragmemnt>
+        </React.Fragment>
         )
     }
 }
