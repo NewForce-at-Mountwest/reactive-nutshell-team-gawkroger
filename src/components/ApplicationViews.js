@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NewUserReg from '../components/authentication/newUserReg'
 import userManager from "./authentication/userManager";
 import NewsForm from "./news/NewsForm";
+import NewsDetail from "./news/NewsDetail";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
 import NewsList from "./news/NewsList"
@@ -16,14 +17,15 @@ import MessagesList from "./messages/MessagesList"
 import MessagesManager from "../modules/messagesManager"
 
 export default class ApplicationViews extends Component {
-
   state = {
     users: [],
     messages: [],
     tasks: [],
     events: [],
     news: []
-  }
+  };
+
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   deleteNews = id => {
     return newsManager.deleteNews(id).then(news =>
@@ -31,7 +33,7 @@ export default class ApplicationViews extends Component {
         news: news
       })
     );
-  }
+  };
 
   addNews = newsObject => {
     return newsManager.addNews(newsObject)
@@ -79,6 +81,7 @@ export default class ApplicationViews extends Component {
 
   componentDidMount() {
     const newState = {};
+
     newsManager.getAll()
       .then(news => (newState.news = news))
       .then(MessagesManager.getAllMessages)
@@ -111,48 +114,65 @@ export default class ApplicationViews extends Component {
     );
   };
 
-
-
   render() {
     return (
       <React.Fragment>
-
-        <Route exact path="/"
+        <Route
+          exact
+          path="/"
           render={props => {
-            return <NewUserReg {...props} />
-          }} />
+            return <NewUserReg {...props} />;
+          }}
+        />
 
         <Route
           exact
           path="/news"
           render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsList {...props} news={this.state.news} />
+            if (this.isAuthenticated()) {
+              return <NewsList {...props} news={this.state.news} />
+            } else {
+              return <Redirect to="/" />
+            }
           }}
-        // }
         />
         <Route
           path="/news/new"
           render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsForm {...props} addNews={this.addNews} />
-          }}
-        // }
-        />
-        <Route
-          path="/news/newsId(\d+)/edit"
-          render={props => {
-            // if (this.isAuthenticated()) {
-            return <NewsEditForm {...props} updateNews={this.updateNews} />
-          }}
-        // }
-        />
-
-        <Route
-          path="/friends" render={props => {
             if (this.isAuthenticated()) {
-              return null
-              // Remove null and return the component which will show list of friends
+              return <NewsForm {...props} addNews={this.addNews} />
+            } else {
+              return <Redirect to="/" />
+            }
+          }}
+        />
+        <Route
+          exact
+          path="/news/:newsId(\d+)"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return (
+                <NewsDetail
+                  {...props}
+                  deleteNews={this.deleteNews}
+                  news={this.state.news}
+                />
+              )
+            } else {
+              return <Redirect to="/" />
+            }
+          }}
+        />
+        <Route
+          path="/news/:newsId(\d+)/edit"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return (
+                <NewsEditForm {...props}
+                updateNews={this.updateNews}
+                news={this.state.news}
+                />
+              )
             } else {
               return <Redirect to="/" />
             }
@@ -160,7 +180,17 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
-          path="/messages" render={props => {
+          path="/friends" render={props => {
+            if (this.isAuthenticated()) {
+              return null
+              // Remove null and return the component which will show list of friends
+            }
+          }}
+        />
+
+        <Route
+          path="/messages"
+          render={props => {
             if (this.isAuthenticated()) {
               return <MessagesList {...props} messages={this.state.messages} addMessage={this.addMessage} updateMessages={this.updateMessages} />;
             } else {
@@ -170,12 +200,13 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
-          path="/tasks" render={props => {
+          path="/tasks"
+          render={props => {
             if (this.isAuthenticated()) {
-              return null
+              return null;
               // Remove null and return the component which will show the user's tasks
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
