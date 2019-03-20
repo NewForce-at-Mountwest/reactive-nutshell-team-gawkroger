@@ -69,10 +69,8 @@ export default class NewUserReg extends Component {
                     userAPIManager.postUser(newUser)
                     .then(pu => {
                         sessionStorage.setItem("userId", pu.id)
-                    })
-
                         this.props.history.push("/news")
-
+                    })
     }
 })
             }
