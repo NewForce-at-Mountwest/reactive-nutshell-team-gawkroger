@@ -21,13 +21,13 @@ export default {
         }).then(u => u.json())
     },
 
-    checkUserName: (userName) => {
-        return fetch(`${remoteURL}/users?name=${userName}`)
-           .then(u => u.json())
-    },
+    // checkUserName: (userName) => {
+    //     return fetch(`${remoteURL}/users?name=${userName}`)
+    //        .then(u => u.json())
+    // },
 
     checkUserEmail: (userEmail) => {
         return fetch(`${remoteURL}/users?email=${userEmail}`)
-           .then(u => u.json())
+           .then(su => su.json())
     }
 }

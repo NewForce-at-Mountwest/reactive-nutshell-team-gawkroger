@@ -1,5 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
+import Login from '../components/authentication/login'
 import NewUserReg from '../components/authentication/newUserReg'
 import userManager from "./authentication/userManager";
 import NewsForm from "./news/NewsForm";
@@ -58,7 +59,7 @@ export default class ApplicationViews extends Component {
       .then(news => (newState.news = news))
       .then(userManager.getAllUsers)
       .then(users => (newState.users = users))
-      .then(eventsAPIManager.getAllEvents)
+      .then(eventsAPIManager.getUserEvents)
       .then(events => (newState.events = events))
       .then(() => this.setState(newState))
   }
@@ -84,11 +85,16 @@ export default class ApplicationViews extends Component {
 
   getUserEvents = id => {
     return eventsAPIManager.getUserEvents(id)
-    .then(ue =>
+    .then(ue => {
+      // console.log("Here's is a note", ue)
+      //   const eventsByDate = ue.sort(function(a, b) {
+      //       return a.date-b.date
+      //   })
+      //   console.log(eventsByDate)
       this.setState({
         events: ue
-      }))
-  }
+      })
+  })}
 
   postEvent = eventObject => {
     return eventsAPIManager.postEvent(eventObject)
@@ -105,7 +111,14 @@ export default class ApplicationViews extends Component {
           exact
           path="/"
           render={props => {
-            return <NewUserReg {...props} />;
+            return <Login  {...props} />
+          }}
+        />
+        <Route
+          exact
+          path="/register"
+          render={props => {
+            return <NewUserReg {...props} getUserEvents={this.getUserEvents} />;
           }}
         />
 
