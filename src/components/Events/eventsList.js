@@ -15,7 +15,7 @@ export default class EventList extends Component {
 // componentDidMount() {
 //     const newState = {};
 //     eventsAPIManager.getUserEvents(sessionStorage.getItem("userId"))
-//         .then (ua => (newState.userEvents = ua))
+//         .then (ua => (newState.events = ua))
 //         .then (() => this.setState(newState))
 // }
 

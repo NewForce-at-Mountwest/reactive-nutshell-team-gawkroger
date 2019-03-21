@@ -30,7 +30,7 @@ export default class EventEditForm extends Component {
         name: this.state.eventName,
         date: this.state.eventDate,
         location: this.state.eventLocation,
-        userId : sessionStorage.getItem("userId")
+        userId : parseInt(sessionStorage.getItem("userId"))
       };
 
       this.props.updateEvent(editedEvent)

@@ -1,12 +1,14 @@
 import React, { Component } from "react"
 import './login.css'
+import userManager from "./userManager";
 
 
 export default class Login extends Component {
 
     // Set initial state
     state = {
-        email: "",
+
+        userEmail: "",
         password: "",
         rememberMe: ""
     }
@@ -33,60 +35,60 @@ export default class Login extends Component {
     // Simplistic handler for login submit
     handleLogin = (e) => {
         e.preventDefault()
-
-
-            /*
-                For now, just store the email and password that
-                the customer enters into local storage.
-            */
-            if (this.state.rememberMe === true) {
-                localStorage.setItem(
-                    "credentials",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                sessionStorage.setItem(
-                    "credentials",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                this.goBack()
-            } else {
-                sessionStorage.setItem(
-                    "credentials",
-                    JSON.stringify({
-                        email: this.state.email,
-                        password: this.state.password
-                    }))
-                this.goBack()
-            }
+        if (this.state.userEmail === "") {
+            alert("Please enter your registered email address.")
+        } else if
+        (this.state.password === "") {
+            alert("Please enter your password")
         }
+        else {
+            userManager.checkUserEmail(this.state.userEmail)
+                .then(su => {
+                    console.log(su)
+                    if (su[0].length === 0) {
+                        alert("That email address was not found. Please try to register or use a different email.")
+                    } if
+                        (su[0].password !== this.state.password) {
+                        alert("That password is not correct. Please try again.")
+                    }
+                    else if (this.state.rememberMe === true) {
+                        localStorage.setItem("userId", su[0].id)
+                        sessionStorage.setItem("userId", su[0].id)
+                        this.props.history.push("/news")
+                    } else {
+                        sessionStorage.setItem("userId", su[0].id)
+                        this.props.history.push("/news")
+                    }
+                }
+            )
+        }
+    }
 
-    render() {
-        return (
-            <div>
+
+render() {
+    return (
+        <div>
             <form onSubmit={this.handleLogin}>
                 <h1>Reactive Nutshell - Team Gawkroger</h1>
                 <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
                 <br></br>
-                <label htmlFor="inputEmail">
+
+                <label htmlFor="userEmail">
                     Email address
                 </label>
                 <input onChange={this.handleFieldChange} type="email"
-                    id="email"
+                    id="userEmail"
                     placeholder="Email address"
                     required="" autoFocus="" />
                 <br></br>
-                {/* <label htmlFor="inputPassword">
+                <label htmlFor="inputPassword">
                     Password
                 </label>
                 <input onChange={this.handleFieldChange} type="password"
                     id="password"
                     placeholder="Password"
                     required="" />
-                <br></br> */}
+                <br></br>
                 <label htmlFor="rememberMe">
                     Remember Me
                 </label>
@@ -97,18 +99,18 @@ export default class Login extends Component {
                 <br></br>
                 <button type="submit">
                     Sign in
-                </button>
+                        </button>
             </form>
             <section>
-            <br></br>
-            <h2>-or-</h2>
-            <br></br>
-                <button type="register" onClick={() => this.props.history.push("/regNewUser")}
-                id="newUserReg">
+                <br></br>
+                <h2>-or-</h2>
+                <br></br>
+                <button type="register" onClick={() => this.props.history.push("/register")}
+                    id="newUserReg">
                     Register New User
                 </button>
             </section>
-            </div>
-        )
-    }
+        </div>
+    )
+}
 }

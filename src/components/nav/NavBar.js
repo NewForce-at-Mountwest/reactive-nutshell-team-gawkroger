@@ -24,6 +24,17 @@ export default class NavBar extends Component {
                     </Link>
                             )}
                     </li>
+                    <li className="nav-item">
+                        {sessionStorage.getItem("userId") !== null ||
+                            localStorage.getItem("userId") !== null
+                            ? (
+                                null
+                            ) : (
+                                <Link className="nav-link" to="/register" onClick={this.logout}>
+                                    Register
+                    </Link>
+                            )}
+                    </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/news">News</Link>
                         </li>
@@ -39,6 +50,7 @@ export default class NavBar extends Component {
                         <li className="nav-item">
                             <Link className="nav-link" to="/events">Events</Link>
                         </li>
+
                 </ul>
             </nav>
                 )
