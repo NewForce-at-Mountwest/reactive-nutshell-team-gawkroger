@@ -26,8 +26,23 @@
 }
 
 #task-image {
+    text-align: center;
+    align-content: center;
     border-radius: 50%;
     color: black;
+    display:block;
+    margin:auto;
+}
+
+#task-image-2 {
+    text-align: center;
+    align-content: center;
+    border-radius: 50%;
+    color: black;
+    height: 100 px;
+    width: 33%;
+    display:block;
+    margin:auto;
 }
 
 .underline {
