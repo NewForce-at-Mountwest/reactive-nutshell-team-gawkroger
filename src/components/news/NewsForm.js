@@ -18,19 +18,18 @@ export default class NewsForm extends Component {
 
     buildNewsArticle = evt => {
         evt.preventDefault();
-        var d = new Date();
-        var t = d.getHours;
-        var m = d.getMinutes;
-        var n = d.toLocaleDateString();
+        const dateToFormat = Date.now();
+        console.log(dateToFormat);
         const news = {
             title: this.state.newsTitle,
             synopsis: this.state.newsSynopsis,
             url: this.state.newsURL,
             userId: sessionStorage.getItem("userId"),
-            timeStamp: n, t, m
+            timeStamp: dateToFormat
 
         };
-        console.log(news);
+        // console.log(news);
+
 
 
     this.props
