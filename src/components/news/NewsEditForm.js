@@ -7,7 +7,9 @@ export default class NewsEditForm extends Component {
     state = {
         newsTitle: "",
         newsSynopsis: "",
-        newsURL: ""
+        newsURL: "",
+        newsUserId: "",
+        newsTs: ""
     };
 
     handleFieldChange = evt => {
@@ -22,7 +24,9 @@ export default class NewsEditForm extends Component {
             id: this.props.match.params.newsId,
             title: this.state.newsTitle,
             synopsis: this.state.newsSynopsis,
-            url: this.state.newsURL
+            url: this.state.newsURL,
+            userId: sessionStorage.getItem("userId"),
+
         }
         this.props
         .updateNews(editedNews)

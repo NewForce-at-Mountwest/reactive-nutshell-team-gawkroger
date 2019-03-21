@@ -1,16 +1,16 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Component } from "react";
-import NewUserReg from '../components/authentication/newUserReg'
+import NewUserReg from "../components/authentication/newUserReg";
 import userManager from "./authentication/userManager";
 import NewsForm from "./news/NewsForm";
 import NewsDetail from "./news/NewsDetail";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
-import NewsList from "./news/NewsList"
-import EventList from '../components/Events/eventsList'
-import EventForm from '../components/Events/eventForm'
-import EventEditForm from '../components/Events/eventEditForm'
-import eventsAPIManager from '../components/Events/eventsAPIManager'
+import NewsList from "./news/NewsList";
+import EventList from "../components/Events/eventsList";
+import EventForm from "../components/Events/eventForm";
+import EventEditForm from "../components/Events/eventEditForm";
+import eventsAPIManager from "../components/Events/eventsAPIManager";
 
 export default class ApplicationViews extends Component {
   state = {
@@ -21,7 +21,7 @@ export default class ApplicationViews extends Component {
     news: []
   };
 
-  isAuthenticated = () => sessionStorage.getItem("userId") !== null
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null;
 
   deleteNews = id => {
     return newsManager.deleteNews(id).then(news =>
@@ -32,17 +32,19 @@ export default class ApplicationViews extends Component {
   };
 
   addNews = newsObject => {
-    return newsManager.addNews(newsObject)
+    return newsManager
+      .addNews(newsObject)
       .then(() => newsManager.getAll())
       .then(news =>
         this.setState({
           news: news
         })
       );
-  }
+  };
 
   updateNews = editedNewsObeject => {
-    return newsManager.updateNews(editedNewsObeject)
+    return newsManager
+      .updateNews(editedNewsObeject)
       .then(() => newsManager.getAll())
       .then(news =>
         this.setState({
@@ -54,17 +56,23 @@ export default class ApplicationViews extends Component {
   componentDidMount() {
     const newState = {};
 
-    newsManager.getAll()
-      .then(news => (newState.news = news))
+    newsManager
+      .getAll()
+      .then(news => {
+        console.log(news, "newsnote");
+        newState.news = news;
+      })
+
       .then(userManager.getAllUsers)
       .then(users => (newState.users = users))
       .then(eventsAPIManager.getAllEvents)
       .then(events => (newState.events = events))
-      .then(() => this.setState(newState))
+      .then(() => this.setState(newState));
   }
 
   updateEvent = editedEvent => {
-    return eventsAPIManager.putEvent(editedEvent)
+    return eventsAPIManager
+      .putEvent(editedEvent)
       .then(() => eventsAPIManager.getAllEvents())
       .then(events => {
         this.setState({
@@ -74,8 +82,7 @@ export default class ApplicationViews extends Component {
   };
 
   deleteEvent = id => {
-    return eventsAPIManager.deleteEvent(id)
-    .then(events =>
+    return eventsAPIManager.deleteEvent(id).then(events =>
       this.setState({
         events: events
       })
@@ -98,9 +105,9 @@ export default class ApplicationViews extends Component {
           path="/news"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsList {...props} news={this.state.news} />
+              return <NewsList {...props} news={this.state.news} />;
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -108,9 +115,9 @@ export default class ApplicationViews extends Component {
           path="/news/new"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsForm {...props} addNews={this.addNews} />
+              return <NewsForm {...props} addNews={this.addNews} />;
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -125,9 +132,9 @@ export default class ApplicationViews extends Component {
                   deleteNews={this.deleteNews}
                   news={this.state.news}
                 />
-              )
+              );
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -136,21 +143,23 @@ export default class ApplicationViews extends Component {
           render={props => {
             if (this.isAuthenticated()) {
               return (
-                <NewsEditForm {...props}
-                updateNews={this.updateNews}
-                news={this.state.news}
+                <NewsEditForm
+                  {...props}
+                  updateNews={this.updateNews}
+                  news={this.state.news}
                 />
-              )
+              );
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
 
         <Route
-          path="/friends" render={props => {
+          path="/friends"
+          render={props => {
             if (this.isAuthenticated()) {
-              return null
+              return null;
               // Remove null and return the component which will show list of friends
             }
           }}
@@ -163,7 +172,7 @@ export default class ApplicationViews extends Component {
               return null;
               // Remove null and return the component which will show the messages
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -180,23 +189,34 @@ export default class ApplicationViews extends Component {
           }}
         />
 
-        <Route exact path="/events" render={(props) => {
-          if (this.isAuthenticated()) {
-            return <EventList {...props} events={this.state.events} deleteEvent={this.deleteEvent}/>
+        <Route
+          exact
+          path="/events"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return (
+                <EventList
+                  {...props}
+                  events={this.state.events}
+                  deleteEvent={this.deleteEvent}
+                />
+              );
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
+        />
 
-          } else {
-            return <Redirect to="/" />
-          }
-        }} />
-
-        <Route path="/events/new" render={(props) => {
-          if (this.isAuthenticated()) {
-            return <EventForm {...props}
-              events={this.state.events} />
-          } else {
-            return <Redirect to="/" />
-          }
-        }} />
+        <Route
+          path="/events/new"
+          render={props => {
+            if (this.isAuthenticated()) {
+              return <EventForm {...props} events={this.state.events} />;
+            } else {
+              return <Redirect to="/" />;
+            }
+          }}
+        />
 
         <Route
           path="/events/:eventId(\d+)/edit"
@@ -210,8 +230,6 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-
-
       </React.Fragment>
     );
   }

@@ -4,11 +4,14 @@ import "./news.css";
 
 
 export default class NewsCard extends Component {
+
+
   render() {
 
+
     return (
-      <div className="card">
-        <div className="card-body">
+      <div className="card" id="cardID">
+        <div className="card-body" id="cardBody">
           <h5 className="card-title">{this.props.news.title}</h5>
           <a href={this.props.news.url} alt="news link">{this.props.news.url}</a>
           <p>{this.props.news.synopsis}</p>

@@ -6,9 +6,8 @@ export default class NewsList extends Component {
     render () {
 return (
     <React.Fragment>
-
        <section className="news-section">
-       {this.props.news.map(singleNewsArticle => (
+              {this.props.news.map(singleNewsArticle => (
            <NewsCard key={singleNewsArticle.id} news={singleNewsArticle}/>
 
        ))}
