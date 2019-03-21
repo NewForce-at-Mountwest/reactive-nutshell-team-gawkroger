@@ -75,12 +75,28 @@ export default class ApplicationViews extends Component {
 
   deleteEvent = id => {
     return eventsAPIManager.deleteEvent(id)
-    .then(events =>
+    .then(parsedEvents =>
       this.setState({
-        events: events
+        events: parsedEvents
       })
     );
   };
+
+  getUserEvents = id => {
+    return eventsAPIManager.getUserEvents(id)
+    .then(ue =>
+      this.setState({
+        events: ue
+      }))
+  }
+
+  postEvent = eventObject => {
+    return eventsAPIManager.postEvent(eventObject)
+    .then(ue =>
+      this.setState({
+        events: ue
+      }))
+  }
 
   render() {
     return (
@@ -182,7 +198,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/events" render={(props) => {
           if (this.isAuthenticated()) {
-            return <EventList {...props} events={this.state.events} deleteEvent={this.deleteEvent}/>
+            return <EventList {...props} events={this.state.events} getUserEvents={this.getUserEvents} deleteEvent={this.deleteEvent} />
 
           } else {
             return <Redirect to="/" />
@@ -192,7 +208,7 @@ export default class ApplicationViews extends Component {
         <Route path="/events/new" render={(props) => {
           if (this.isAuthenticated()) {
             return <EventForm {...props}
-              events={this.state.events} />
+              events={this.state.events} postEvent={this.postEvent}/>
           } else {
             return <Redirect to="/" />
           }
