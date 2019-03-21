@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // import CheckboxInput from './TaskCheckbox';
 import TaskManager from "../../modules/TaskManager"
 import './Task.css';
@@ -9,6 +10,7 @@ export default class TaskEditForm extends Component {
         taskName: "",
         isCompleted: false,
         dueDate: "",
+        userId: sessionStorage.getItem("userId")
     };
 
     handleFieldChange = evt => {
@@ -25,7 +27,8 @@ export default class TaskEditForm extends Component {
             id: this.props.match.params.taskId,
             name: this.state.taskName,
             isCompleted: this.state.checkboxState,
-            dueDate: this.state.dueDate
+            dueDate: this.state.dueDate,
+            userId: sessionStorage.getItem("userId")
         };
 
         this.props.updateTask(editedTask)
@@ -78,8 +81,21 @@ export default class TaskEditForm extends Component {
                         <div className="form-group col-auto">
                             <label className="bold-name" htmlFor="task"><h3 className="mt-2">{checkbox}</h3></label>
                         </div>
-                        <button
-                            type="submit" onClick={this.updateExistingTask} className="btn btn-primary"><i className="material-icons md-18">update</i> Update</button>
+                        <input
+                            type="hidden"
+                            required
+                            className="form-control"
+                            // onChange={this.handleFieldChange}
+                            id="userId"
+                            value={this.state.userId}
+                        />
+                        <div className="taskButton">
+                            <button
+                                type="submit" onClick={this.updateExistingTask} className="btn btn-success"><i className="material-icons md-18">update</i> Update</button>
+                        </div><br></br>
+                        <div className="taskButton">
+                            <button className="btn btn-info"><Link className="text-white" to={`/tasks`}><i className="material-icons md-18">details</i> Back to List of Tasks</Link></button>
+                        </div>
                     </div>
                 </form>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>

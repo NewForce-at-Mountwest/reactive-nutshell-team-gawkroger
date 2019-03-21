@@ -25,7 +25,8 @@ export default class TaskForm extends Component {
     const task = {
       name: this.state.taskName,
       isCompleted: this.state.checkboxState,
-      dueDate: this.state.dueDate
+      dueDate: this.state.dueDate,
+      userId: sessionStorage.getItem("userId")
     };
 
     // Create the task / redirect user to task list:
@@ -49,17 +50,10 @@ export default class TaskForm extends Component {
     checkedOrNot.push(this.state.checkboxState ? true : false);
     const checkbox = (
       <span>
-        <label><i className="material-icons md-18">playlist_add_check</i>   Task Completed?</label>
-        <br></br>
-
-        <h4 className=""><input
-          type="checkbox"
-          onClick={this.toggle.bind(this)}
-          className="big-checkbox"
-          id="isCompleted"
-          value={this.state.checkboxState}
-          onChange={this.handleFieldChange}>
-        </input></h4>
+        <label><i className="material-icons md-18">playlist_add_check</i>   Task Completed?</label><br></br>
+        <h4 className="">
+          <input type="checkbox" onClick={this.toggle.bind(this)} className="big-checkbox" id="isCompleted" value={this.state.checkboxState} onChange={this.handleFieldChange}></input>
+        </h4>
       </span>
     );
 
@@ -85,8 +79,7 @@ export default class TaskForm extends Component {
             </div>
             <div id="inputcontainer">
               <button type="" onClick={this.constructNewTask} className="btn btn-success"><i className="material-icons md-18">add</i>  Add Task</button>
-            </div>
-            <br></br>
+            </div><br></br>
             <div className="taskButton">
               <button className="btn btn-info"><Link className="text-white" to={`/tasks`}>
                 <i className="material-icons md-18">toc</i>  Back to List of Tasks</Link>

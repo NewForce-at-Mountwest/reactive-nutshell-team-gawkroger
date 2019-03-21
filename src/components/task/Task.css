@@ -29,3 +29,7 @@
     border-radius: 50%;
     color: black;
 }
+
+.underline {
+    text-decoration: underline;
+}

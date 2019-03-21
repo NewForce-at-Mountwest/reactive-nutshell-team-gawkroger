@@ -5,6 +5,17 @@ import './Task.css';
 
 // For filter fx, "return task.isCompleted" could alternatively be set to inequality (!=) operator @ true.
 
+// state = {
+//     userTasks: []
+// }
+
+// componentDidMount() {
+//     const newState = {};
+//     TaskManager.getUserTasks(sessionStorage.getItem("userId"))
+//         .then (access => (newState.userTasks = access))
+//         .then (() => this.setState(newState))
+// }
+
 export default class TaskList extends Component {
   render() {
     var props = this.props;
@@ -12,12 +23,9 @@ export default class TaskList extends Component {
       <React.Fragment>
         <section className="my-5">
           <h2 className="h1-responsive font-weight-bold text-center my-5"><i className="material-icons md-48">menu</i> List of Tasks</h2>
-          <div className="card" id="card-tasks">
-            <br></br>
-            <img src="http://coachdavebeam.com/wp-content/uploads/2013/03/IMG_0975_-e1430594615427-130x130.jpg" alt="Coach Dave" id="task-image"></img>
-            <br>
-            </br><p className="ptask">"We live in a fantasy world, a world of illusion. The great task in life is to find reality.</p>
-            <br></br>
+          <div className="card" id="card-tasks"><br></br>
+            <img src="http://coachdavebeam.com/wp-content/uploads/2013/03/IMG_0975_-e1430594615427-130x130.jpg" alt="Coach Dave" id="task-image"></img><br></br>
+            <p className="ptask">"We live in a fantasy world, a world of illusion. The great <u>task</u> in life is to find reality.</p><br></br>
             <section className="tasks">
               {props.tasks
                 .filter(function (task) {
