@@ -7,7 +7,8 @@ export default class EventEditForm extends Component {
   state = {
     eventName: "",
     eventDate: "",
-    eventDescription: ""
+    eventLocation: "",
+    userId: sessionStorage.getItem("userId")
   };
 
   handleFieldChange = evt => {
@@ -28,7 +29,8 @@ export default class EventEditForm extends Component {
         id: this.props.match.params.eventId,
         name: this.state.eventName,
         date: this.state.eventDate,
-        description: this.state.eventDescription
+        location: this.state.eventLocation,
+        userId : sessionStorage.getItem("userId")
       };
 
       this.props.updateEvent(editedEvent)
@@ -41,7 +43,8 @@ export default class EventEditForm extends Component {
       this.setState({
         eventName: event.name,
         eventDate: event.date,
-        eventDescription: event.description
+        eventLocation: event.location,
+
       });
       console.log(event)
     });
@@ -77,16 +80,24 @@ export default class EventEditForm extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="eventDescription">Event Description</label>
+                  <label htmlFor="eventLocation">Event Location</label>
                   <input
-                    type="textarea"
+                    type="text"
                     required
                     className="form-control"
                     onChange={this.handleFieldChange}
-                    id="eventDescription"
-                    value={this.state.eventDescription}
+                    id="eventLocation"
+                    value={this.state.eventLocation}
                   />
                 </div>
+                <input
+                    type="hidden"
+                    required
+                    className="form-control"
+                    // onChange={this.handleFieldChange}
+                    id="userId"
+                    value={this.state.userId}
+                  />
 
                 <button
                   type="submit"

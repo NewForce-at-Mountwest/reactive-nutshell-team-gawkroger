@@ -1,13 +1,24 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import EventCard from './eventCard';
+import eventsAPIManager from './eventsAPIManager'
 // import ResourceList from '../generics/resourceList';
 import "./events.css";
 
+
 export default class EventList extends Component {
-    //   state = {
-    //     events: []
-    //   };
+
+// state = {
+//     userEvents: []
+// }
+
+// componentDidMount() {
+//     const newState = {};
+//     eventsAPIManager.getUserEvents(sessionStorage.getItem("userId"))
+//         .then (ua => (newState.userEvents = ua))
+//         .then (() => this.setState(newState))
+// }
+
     render() {
         return (
             <React.Fragment>
@@ -15,7 +26,7 @@ export default class EventList extends Component {
                     <button type="button"
                         className="btn btn-success"
                         onClick={() => {
-                            this.props.history.push("events/new")
+                            this.props.history.push("/Events/new")
                         }
                         }>
                         Add A New Event
@@ -24,7 +35,7 @@ export default class EventList extends Component {
                 <br></br>
                 <section className="events">
                     {this.props.events.map(event => (
-                        <EventCard key={event.id} event={event} deleteEvent={this.props.deleteEvent}/>
+                        <EventCard key={event.id} event={event} deleteEvent={this.props.deleteEvent} {...this.props} />
                     ))}
                 </section>
 

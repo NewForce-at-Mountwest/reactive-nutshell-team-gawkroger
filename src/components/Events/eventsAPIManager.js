@@ -2,13 +2,18 @@ const remoteURL = "http://localhost:5002"
 
 export default {
     getAllEvents: () => {
-        return fetch("http://localhost:5002/events")
+        return fetch(`${remoteURL}/events`)
             .then(ae => ae.json())
     },
 
     getSingleEvent: (eventId) => {
         return fetch(`${remoteURL}/events/${eventId}`)
             .then(se => se.json())
+    },
+
+    getUserEvents: (userId) => {
+        return fetch(`${remoteURL}/events/?userId=${userId}`)
+        .then(ua => ua.json())
     },
 
     postEvent: (newEvent) => {
@@ -18,7 +23,10 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newEvent)
-        }).then(e => e.json())
+
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
     },
 
     putEvent: (editedEvent) => {
@@ -28,13 +36,18 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(editedEvent)
-        }).then(e => e.json())
+
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
     },
 
     deleteEvent: (eventId) => {
         return fetch(`${remoteURL}/events/${eventId}`, {
             method: "DELETE",
 
-        }).then(e => e.json())
-    },
+        })
+        .then(() => fetch(`${remoteURL}/events`))
+        .then(e => e.json())
+    }
 }
