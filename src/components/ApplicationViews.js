@@ -45,6 +45,15 @@ export default class ApplicationViews extends Component {
       .then(tasks => this.setState({ tasks: tasks }));
   };
 
+  getUserTasks = userId => {
+    return TaskManager.getUserTasks(userId)
+
+    .then(access => {
+      this.setState({
+        tasks: access
+      })
+  })}
+
   addTask = task =>
     TaskManager.post(task)
       .then(() => TaskManager.getAll())
@@ -90,9 +99,9 @@ export default class ApplicationViews extends Component {
 
   componentDidMount() {
 
-    TaskManager.getAll().then(allTasks => {
-      this.setState({ tasks: allTasks });
-    });
+    // TaskManager.getAll().then(allTasks => {
+    //   this.setState({ tasks: allTasks });
+    // });
 
     const newState = {};
     newsManager.getAll()
@@ -101,6 +110,8 @@ export default class ApplicationViews extends Component {
       .then(users => (newState.users = users))
       .then(eventsAPIManager.getUserEvents)
       .then(events => (newState.events = events))
+      .then(tasks => (newState.tasks = tasks))
+      .then(TaskManager.getUserTasks)
       .then(() => this.setState(newState))
   }
 
@@ -160,7 +171,8 @@ export default class ApplicationViews extends Component {
           exact
           path="/register"
           render={props => {
-            return <NewUserReg {...props} getUserEvents={this.getUserEvents} />;
+            return <NewUserReg {...props} getUserEvents={this.getUserEvents}
+            getUserTasks={this.getUserTasks} />;
           }}
         />
 
@@ -246,6 +258,7 @@ export default class ApplicationViews extends Component {
                 {...props}
                 deleteTask={this.deleteTask}
                 tasks={this.state.tasks}
+                getUserTasks={this.getUserTasks}
               />
             } else {
               return <Redirect to="/" />
@@ -272,6 +285,7 @@ export default class ApplicationViews extends Component {
               return (
                 <TaskForm
                   {...props}
+                  tasks={this.state.tasks}
                   addTask={this.addTask}
                 />
               );

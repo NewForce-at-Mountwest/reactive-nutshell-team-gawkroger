@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import TaskManager from "../../modules/TaskManager"
+// import TaskEditForm from './TaskEditForm';
+// import TaskManager from "../modules/TaskManager";
 import './Task.css';
 
 export default class TaskCard extends Component {
@@ -58,7 +59,7 @@ export default class TaskCard extends Component {
                                 <button className="btn btn-info"><Link className="text-white" to={`/tasks/${this.props.task.id}`}><i className="material-icons md-18">details</i>  Task Details</Link></button>
                             </div><br></br>
                             <div>
-                                <button className="btn btn-danger"><a href="/tasks/" onClick={() => this.props.deleteTask(this.props.task.id)} className="text-white" alt="Remove Task"><i className="material-icons md-18">delete_forever</i>  Delete  Task</a></button>
+                                <button className="btn btn-danger text-white" type="button" onClick={() => {this.props.deleteTask(this.props.task.id).then(() => this.props.history.push("/tasks"))}} alt="Remove Task"><i className="material-icons md-18">delete_forever</i>  Delete  Task</button>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@ export default class TaskForm extends Component {
       name: this.state.taskName,
       isCompleted: this.state.checkboxState,
       dueDate: this.state.dueDate,
-      userId: sessionStorage.getItem("userId")
+      userId: parseInt(sessionStorage.getItem("userId"))
     };
 
     // Create the task / redirect user to task list:

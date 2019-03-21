@@ -28,7 +28,7 @@ export default class TaskEditForm extends Component {
             name: this.state.taskName,
             isCompleted: this.state.checkboxState,
             dueDate: this.state.dueDate,
-            userId: sessionStorage.getItem("userId")
+            userId : parseInt(sessionStorage.getItem("userId"))
         };
 
         this.props.updateTask(editedTask)
@@ -85,9 +85,9 @@ export default class TaskEditForm extends Component {
                             type="hidden"
                             required
                             className="form-control"
-                            // onChange={this.handleFieldChange}
                             id="userId"
                             value={this.state.userId}
+                            // onSubmit={this.state.userId}
                         />
                         <div className="taskButton">
                             <button

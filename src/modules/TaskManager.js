@@ -6,7 +6,7 @@ export default {
         return fetch(`${remoteURL}/tasks/${id}`).then(e => e.json());
     },
 
-    getOne: (id) => fetch(`${remoteURL}/tasks/${id}`).then(e => e.json()),
+    getOne: (taskId) => fetch(`${remoteURL}/tasks/${taskId}`).then(e => e.json()),
 
     getUserTasks: (userId) => {
         return fetch(`${remoteURL}/tasks/?userId=${userId}`)
@@ -34,6 +34,8 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newTask)
-        }).then(data => data.json());
-    }
+        })
+        .then(() => fetch(`${remoteURL}/tasks/?userId=${sessionStorage.getItem("userId")}`))
+        .then(access => access.json())
+    },
 }
