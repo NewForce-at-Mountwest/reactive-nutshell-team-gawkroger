@@ -8,8 +8,9 @@ export default class NewUserReg extends Component {
     // Set initial state
     state = {
         userName: "",
-        userEmail: ""
-        // password: ""
+        userEmail: "",
+        userPassword: "",
+        passwordCheck: ""
     }
 
     // Update state whenever an input field is edited
@@ -21,11 +22,11 @@ export default class NewUserReg extends Component {
         this.setState(stateToChange)
     }
 
-    // handleCheckbox = (evt) => {
-    //     const stateToChange = {}
-    //     stateToChange[evt.target.id] = evt.target.checked
-    //     this.setState(stateToChange)
-    // }
+    handleCheckbox = (evt) => {
+        const stateToChange = {}
+        stateToChange[evt.target.id] = evt.target.checked
+        this.setState(stateToChange)
+    }
 
     goBack() {
         window.history.back()
@@ -35,11 +36,14 @@ export default class NewUserReg extends Component {
         e.preventDefault()
 
         if (this.state.userName === "") {
-            window.alert("Please enter your user name")
+            window.alert("Please enter your user name.")
         } else if (this.state.userEmail === "") {
-            window.alert("Please enter your email address")
+            window.alert("Please enter your email address.")
+        } else if
+            (this.state.userPassword !== this.state.passwordCheck) {
+            window.alert("Passwords do not match! Please try again")
         }
-        if (this.state.userEmail !== "" && this.state.userName !== "")
+        if (this.state.userEmail !== "" && this.state.userName !== "" && this.state.userPassword === this.state.passwordCheck)
             var counter = 0
         userAPIManager.getAllUsers().then(au => {
             au.forEach(u => {
@@ -58,20 +62,28 @@ export default class NewUserReg extends Component {
             if (counter < 1) {
                 const newUser = {
                     name: this.state.userName,
-                    email: this.state.userEmail
-                    // password: this.state.userPassword
+                    email: this.state.userEmail,
+                    password: this.state.userPassword
                 }
                 userAPIManager.postUser(newUser).then(pu => {
-                    // console.log(pu)
-                    sessionStorage.setItem("userId", pu.id)
-                    this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
-                    this.props.history.push("/news")
-                })
+                    if (this.state.rememberMe === true) {
 
+                        // console.log(pu)
+                        localStorage.setItem("userId", pu.id)
+                        sessionStorage.setItem("userId", pu.id)
+                        this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
+                        this.props.history.push("/news")
 
-            }
-        })
-    }
+                    } else {
+                        sessionStorage.setItem("userId", pu.id)
+                        this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
+                        this.props.history.push("/news")
+                    }
+                }
+            )
+        }
+    })
+}
 
     render() {
         return (
@@ -100,10 +112,38 @@ export default class NewUserReg extends Component {
                     required=""
                 />
                 <br />
+
+                <label htmlFor="userPassword">Choose A Password</label>
+                <input
+                    onChange={this.handleFieldChange}
+                    type="password"
+                    id="userPassword"
+                    placeholder="Enter Password"
+                    required=""
+                />
+                <br />
+
+                <label htmlFor="passwordCheck">Re-Enter Password</label>
+                <input
+                    onChange={this.handleFieldChange}
+                    type="password"
+                    id="passwordCheck"
+                    placeholder="Re-Enter Password"
+                    required=""
+                />
+                <br />
+                <label htmlFor="rememberMe">
+                    Remember Me
+                </label>
+                <input onChange={this.handleCheckbox} type="checkbox"
+                    id="rememberMe"
+                    placeholder=""
+                    required="" autoFocus="" />
+                <br />
                 <br />
                 <br />
 
-                <button type="submit">Register New User</button>
+                <button type="submit">Register New User -> Login </button>
             </form>
         )
     }

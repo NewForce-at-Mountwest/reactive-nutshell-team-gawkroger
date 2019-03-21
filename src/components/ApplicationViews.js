@@ -111,7 +111,7 @@ export default class ApplicationViews extends Component {
           exact
           path="/"
           render={props => {
-            return <Login /> {...props};
+            return <Login  {...props} />
           }}
         />
         <Route
