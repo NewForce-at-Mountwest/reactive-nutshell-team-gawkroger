@@ -38,22 +38,6 @@ export default class TaskCard extends Component {
     };
 
     render() {
-        // const checkedOrNot = [];
-        // checkedOrNot.push(this.state.checkboxState);
-        // const checkbox = (
-        //     <span>
-        //         <h4 className=""><label><i className="material-icons md-18">playlist_add_check</i> Task Completed? </label>
-        //             <input
-        //                 type="checkbox"
-        //                 onClick={this.toggle.bind(this)}
-        //                 className="small-checkbox"
-        //                 id="isCompleted"
-        //                 value={this.state.checkboxState}
-        //                 onChange={this.handleFieldChange}>
-        //             </input>
-        //         </h4>
-        //     </span>
-        // );
 
         return (
 
@@ -65,7 +49,6 @@ export default class TaskCard extends Component {
                                 <h3 className="mt-2"><i className="material-icons md-48">event_note</i> Task Name:</h3>
                             </div>
                             <h4 className=""><i className="material-icons md-18">toc</i>   {this.props.task.name}</h4>
-                            {/* <label className="bold-name" htmlFor="task"><h3 className="mt-2">{checkbox}</h3></label> */}
                             <br></br>
                             <div>
                                 <button className="btn btn-info"><Link className="text-white" to={`/tasks/${this.props.task.id}`}><i className="material-icons md-18">details</i>  Task Details</Link></button>

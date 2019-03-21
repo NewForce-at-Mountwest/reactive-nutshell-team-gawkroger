@@ -94,8 +94,7 @@ export default class TaskForm extends Component {
             </div>
           </form>
         </section>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"></link>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
       </React.Fragment>
     );
   }
