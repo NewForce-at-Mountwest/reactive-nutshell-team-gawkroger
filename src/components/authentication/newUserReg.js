@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-// import { Route, Redirect } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 // import InputMask from 'react-input-mask';
 import "./login.css";
 import userAPIManager from "./userManager"

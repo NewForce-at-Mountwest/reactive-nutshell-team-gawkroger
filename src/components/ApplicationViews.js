@@ -93,7 +93,7 @@ export default class ApplicationViews extends Component {
       this.setState({ tasks: allTasks });
     });
 
-    const newState ={};
+    const newState = {};
     newsManager.getAll()
       .then(news => (newState.news = news))
       .then(userManager.getAllUsers)
@@ -115,14 +115,12 @@ export default class ApplicationViews extends Component {
 
   deleteEvent = id => {
     return eventsAPIManager.deleteEvent(id)
-    .then(events =>
-      this.setState({
-        events: events
-      })
-    );
+      .then(events =>
+        this.setState({
+          events: events
+        })
+      );
   };
-
-  // isCompleted = () => sessionStorage.getItem("credentials") !== null
 
   render() {
     return (
@@ -179,8 +177,8 @@ export default class ApplicationViews extends Component {
             if (this.isAuthenticated()) {
               return (
                 <NewsEditForm {...props}
-                updateNews={this.updateNews}
-                news={this.state.news}
+                  updateNews={this.updateNews}
+                  news={this.state.news}
                 />
               )
             } else {
@@ -194,8 +192,6 @@ export default class ApplicationViews extends Component {
             if (this.isAuthenticated()) {
               return null
               // Remove null and return the component which will show list of friends
-            } else {
-              return <Redirect to="/" />
             }
           }}
         />
@@ -267,7 +263,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/events" render={(props) => {
           if (this.isAuthenticated()) {
-            return <EventList {...props} events={this.state.events} deleteEvent={this.deleteEvent}/>
+            return <EventList {...props} events={this.state.events} deleteEvent={this.deleteEvent} />
 
           } else {
             return <Redirect to="/" />
