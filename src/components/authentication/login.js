@@ -6,6 +6,7 @@ export default class Login extends Component {
 
     // Set initial state
     state = {
+        user: "",
         email: "",
         password: "",
         rememberMe: ""
@@ -60,7 +61,7 @@ export default class Login extends Component {
                         email: this.state.email,
                         password: this.state.password
                     }))
-                this.goBack()
+                this.props.history.push("/news")
             }
         }
 
@@ -71,11 +72,19 @@ export default class Login extends Component {
                 <h1>Reactive Nutshell - Team Gawkroger</h1>
                 <h2 className="h3 mb-3 font-weight-normal">Please sign in</h2>
                 <br></br>
-                <label htmlFor="inputEmail">
+                <label htmlFor="userName">
+                    User Name
+                </label>
+                <input onChange={this.handleFieldChange} type="text"
+                    id="userName"
+                    placeholder="User Name"
+                    required="" autoFocus="" />
+                <br></br>
+                <label htmlFor="userEmail">
                     Email address
                 </label>
                 <input onChange={this.handleFieldChange} type="email"
-                    id="email"
+                    id="userEmail"
                     placeholder="Email address"
                     required="" autoFocus="" />
                 <br></br>
@@ -103,7 +112,7 @@ export default class Login extends Component {
             <br></br>
             <h2>-or-</h2>
             <br></br>
-                <button type="register" onClick={() => this.props.history.push("/regNewUser")}
+                <button type="register" onClick={() => this.props.history.push("/register")}
                 id="newUserReg">
                     Register New User
                 </button>

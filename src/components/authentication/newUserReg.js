@@ -62,8 +62,9 @@ export default class NewUserReg extends Component {
                     // password: this.state.userPassword
                 }
                 userAPIManager.postUser(newUser).then(pu => {
-                    console.log(pu)
+                    // console.log(pu)
                     sessionStorage.setItem("userId", pu.id)
+                    this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
                     this.props.history.push("/news")
                 })
 

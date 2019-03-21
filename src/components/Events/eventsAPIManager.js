@@ -13,7 +13,7 @@ export default {
 
     getUserEvents: (userId) => {
         return fetch(`${remoteURL}/events/?userId=${userId}`)
-        .then(ua => ua.json())
+        .then(ue => ue.json())
     },
 
     postEvent: (newEvent) => {
@@ -25,8 +25,9 @@ export default {
             body: JSON.stringify(newEvent)
 
         })
-        .then(() => fetch(`${remoteURL}/events`))
-        .then(e => e.json())
+        // console.log("Here is a note");
+        .then(() => fetch(`${remoteURL}/events/?userId=${sessionStorage.getItem("userId")}`))
+        .then(ue => ue.json())
     },
 
     putEvent: (editedEvent) => {
