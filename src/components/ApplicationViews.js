@@ -13,10 +13,14 @@ import EventForm from '../components/Events/eventForm'
 import EventEditForm from '../components/Events/eventEditForm'
 import eventsAPIManager from '../components/Events/eventsAPIManager'
 
+//// Messages imports ////
+import MessagesList from "./messages/MessagesList"
+import MessagesManager from "../modules/messagesManager"
+
 export default class ApplicationViews extends Component {
   state = {
     users: [],
-    chats: [],
+    messages: [],
     tasks: [],
     events: [],
     news: []
@@ -48,20 +52,48 @@ export default class ApplicationViews extends Component {
       .then(news =>
         this.setState({
           news: news
+        }))
+  }
+
+  ///////Messages Components//////
+
+  addMessage = messageObject =>
+    MessagesManager.postMessage(messageObject)
+      .then(() => MessagesManager.getAllMessages())
+      .then(messages =>
+        this.setState({
+          messages: messages
         })
+      // .then(MessagesManager.getAllMessages)
       );
-  };
+
+  updateMessages = editedMessageObject => {
+        return MessagesManager.put(editedMessageObject)
+          .then(() => MessagesManager.getAllMessages())
+          .then(messages => {
+            this.setState({
+              messages: messages
+            });
+          });
+      };
+
+  //////////////////////////////////////
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   componentDidMount() {
     const newState = {};
 
     newsManager.getAll()
       .then(news => (newState.news = news))
+      .then(MessagesManager.getAllMessages)
+      .then(messages => (newState.messages = messages))
       .then(userManager.getAllUsers)
       .then(users => (newState.users = users))
       .then(eventsAPIManager.getUserEvents)
       .then(events => (newState.events = events))
       .then(() => this.setState(newState))
+
+
   }
 
   updateEvent = editedEvent => {
@@ -189,8 +221,7 @@ export default class ApplicationViews extends Component {
           path="/messages"
           render={props => {
             if (this.isAuthenticated()) {
-              return null;
-              // Remove null and return the component which will show the messages
+              return <MessagesList {...props} messages={this.state.messages} addMessage={this.addMessage} updateMessages={this.updateMessages} />;
             } else {
               return <Redirect to="/" />
             }
@@ -239,7 +270,6 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-
 
       </React.Fragment>
     );
