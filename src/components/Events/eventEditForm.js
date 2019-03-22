@@ -53,7 +53,7 @@ export default class EventEditForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="card">
+        <div className="editCard">
           <div className="card-body">
             <h5 className="card-title">
               <form className="eventForm">

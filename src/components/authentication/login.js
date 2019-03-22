@@ -107,7 +107,7 @@ render() {
             </form>
             <section>
                 <br></br>
-                <h2>-or-</h2>
+                <h3>-or-</h3>
                 <br></br>
                 <button type="register" onClick={() => this.props.history.push("/register")}
                     id="newUserReg">
