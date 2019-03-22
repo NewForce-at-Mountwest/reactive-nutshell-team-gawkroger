@@ -55,10 +55,12 @@ export default class Login extends Component {
                         localStorage.setItem("userId", su[0].id)
                         sessionStorage.setItem("userId", su[0].id)
                         this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
+                        this.props.getUserTasks(parseInt(sessionStorage.getItem("userId")))
                         this.props.history.push("/news")
                     } else {
                         sessionStorage.setItem("userId", su[0].id)
                         this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
+                        this.props.getUserTasks(parseInt(sessionStorage.getItem("userId")))
                         this.props.history.push("/news")
                     }
                 }
