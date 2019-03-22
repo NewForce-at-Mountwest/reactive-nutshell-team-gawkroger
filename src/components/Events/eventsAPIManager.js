@@ -23,11 +23,7 @@ export default {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newEvent)
-
         })
-        // console.log("Here is a note");
-        .then(() => fetch(`${remoteURL}/events/?userId=${sessionStorage.getItem("userId")}`))
-        .then(ue => ue.json())
     },
 
     putEvent: (editedEvent) => {

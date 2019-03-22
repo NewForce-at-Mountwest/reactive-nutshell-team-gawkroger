@@ -1,11 +1,13 @@
 .addEventButton{
-    margin-top:10vh;
+    margin-top:3vh;
     text-align:center;
 }
 .events {
     display: flex;
     justify-content: space-evenly;
-    flex: wrap;
+    flex-wrap: wrap;
+    margin-left:5vw;
+    margin-right:5vw;
 }
 
 .icon--image {
@@ -14,8 +16,10 @@
 }
 
 .card {
-    margin-left:auto;
-    margin-right:auto;
+    display:flex;
+    flex-basis:30%;
+    margin-left:2px;
+    margin-right:2px;
     width: 10rem;
 }
 
@@ -33,4 +37,17 @@
 
 .card-body {
     text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+h2{
+    text-align:center;
+    margin-top:10vh;
+}
+
+.eventForm{
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
 }

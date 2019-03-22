@@ -54,9 +54,11 @@ export default class Login extends Component {
                     else if (this.state.rememberMe === true) {
                         localStorage.setItem("userId", su[0].id)
                         sessionStorage.setItem("userId", su[0].id)
+                        this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
                         this.props.history.push("/news")
                     } else {
                         sessionStorage.setItem("userId", su[0].id)
+                        this.props.getUserEvents(parseInt(sessionStorage.getItem("userId")))
                         this.props.history.push("/news")
                     }
                 }
@@ -103,7 +105,7 @@ render() {
             </form>
             <section>
                 <br></br>
-                <h2>-or-</h2>
+                <h3>-or-</h3>
                 <br></br>
                 <button type="register" onClick={() => this.props.history.push("/register")}
                     id="newUserReg">
