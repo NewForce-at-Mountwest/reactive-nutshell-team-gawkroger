@@ -196,7 +196,8 @@ export default class ApplicationViews extends Component {
           exact
           path="/"
           render={props => {
-            return <Login  {...props} getUserEvents={this.getUserEvents} getUserTasks={this.getUserTasks}/>
+            return <Login
+            {...props} getUserEvents={this.getUserEvents} getUserTasks={this.getUserTasks}/>
           }}
         />
         <Route
