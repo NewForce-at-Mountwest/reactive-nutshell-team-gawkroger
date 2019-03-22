@@ -12,8 +12,11 @@ export default class NewsCard extends Component {
 
     return (
       <div className="card" id="cardID">
+        <div class="card-header">
+        {this.props.news.title}
+        </div>
         <div className="card-body" id="cardBody">
-          <h5 className="card-title">{this.props.news.title}</h5>
+
           <a href={this.props.news.url} alt="news link">{this.props.news.url}</a>
           <p>{this.props.news.synopsis}</p>
           <Moment>

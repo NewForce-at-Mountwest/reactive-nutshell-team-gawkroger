@@ -370,10 +370,6 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-<<<<<<< HEAD
-=======
-
->>>>>>> master
       </React.Fragment>
     );
   }
