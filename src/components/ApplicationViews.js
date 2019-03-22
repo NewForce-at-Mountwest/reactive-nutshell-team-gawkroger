@@ -98,21 +98,28 @@ export default class ApplicationViews extends Component {
   updateEvent = editedEvent => {
     return eventsAPIManager.putEvent(editedEvent)
       .then(() => this.getUserEvents(sessionStorage.getItem("userId")))
-      .then(events => {
-        this.setState({
-          events: events
-        });
-      });
+      // .then(events => {
+      //   this.setState({
+      //     events: events
+      //   });
+      // });
   };
 
   deleteEvent = id => {
     return eventsAPIManager.deleteEvent(id)
-      .then(parsedEvents =>
-        this.setState({
-          events: parsedEvents
-        })
-      );
+    .then(() => this.getUserEvents(sessionStorage.getItem("userId")))
+      // .then(events => {
+      //   this.setState({
+      //     events: events
+      //   });
+      // });
   };
+  //     .then(parsedEvents =>
+  //       this.setState({
+  //         events: parsedEvents
+  //       })
+  //     );
+  // };
 
   getUserEvents = id => {
     return eventsAPIManager.getUserEvents(id)
@@ -143,6 +150,7 @@ export default class ApplicationViews extends Component {
           render={props => {
             return <Login  {...props} getUserEvents={this.getUserEvents} />
           }}
+
         />
         <Route
           exact

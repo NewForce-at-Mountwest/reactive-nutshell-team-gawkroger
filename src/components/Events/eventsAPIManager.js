@@ -35,8 +35,8 @@ export default {
             body: JSON.stringify(editedEvent)
 
         })
-        .then(() => fetch(`${remoteURL}/events`))
-        .then(e => e.json())
+        // .then(() => fetch(`${remoteURL}/events`))
+        // .then(e => e.json())
     },
 
     deleteEvent: (eventId) => {
@@ -44,7 +44,7 @@ export default {
             method: "DELETE",
 
         })
-        .then(() => fetch(`${remoteURL}/events`))
-        .then(e => e.json())
+        // .then(() => fetch(`${remoteURL}/events`))
+        // .then(e => e.json())
     }
 }
