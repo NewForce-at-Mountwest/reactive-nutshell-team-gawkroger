@@ -20,8 +20,10 @@ export default class EventList extends Component {
 // }
 
     render() {
+        // this.props.getUserEvents()
         return (
             <React.Fragment>
+                <h2>Here's Your Events</h2>
                 <div className="addEventButton">
                     <button type="button"
                         className="btn btn-success"

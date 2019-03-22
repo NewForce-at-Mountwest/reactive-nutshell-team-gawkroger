@@ -31,6 +31,7 @@ export default class ApplicationViews extends Component {
     // Reconfigure it to query the entire API and populate this data structure.
     users: [],
     messages: [],
+    news: [],
     tasks: [],
     events: []
     // Populate the API from JSON (why the arrays / data structure are empty, above).
@@ -137,56 +138,58 @@ export default class ApplicationViews extends Component {
       .then(messages => (newState.messages = messages))
       .then(userManager.getAllUsers)
       .then(users => (newState.users = users))
-      .then(eventsAPIManager.getUserEvents)
-      .then(events => (newState.events = events))
+      if(sessionStorage.userId !== "" || localStorage.userId !== "") {
+      return this.getUserEvents(sessionStorage.getItem("userId"))
+      // .then(events => (newState.events = events))
       .then(tasks => (newState.tasks = tasks))
       .then(TaskManager.getUserTasks)
       .then(() => this.setState(newState))
-
-
-  }
+  }}
 
   updateEvent = editedEvent => {
-    return eventsAPIManager
-      .putEvent(editedEvent)
-      .then(() => eventsAPIManager.getAllEvents())
-      .then(events => {
-        this.setState({
-          events: events
-        });
-      });
+    return eventsAPIManager.putEvent(editedEvent)
+      .then(() => this.getUserEvents(sessionStorage.getItem("userId")))
+      // .then(events => {
+      //   this.setState({
+      //     events: events
+      //   });
+      // });
   };
 
   deleteEvent = id => {
     return eventsAPIManager.deleteEvent(id)
-
-      .then(parsedEvents =>
-        this.setState({
-          events: parsedEvents
-        })
-      );
+    .then(() => this.getUserEvents(sessionStorage.getItem("userId")))
+      // .then(events => {
+      //   this.setState({
+      //     events: events
+      //   });
+      // });
   };
+  //     .then(parsedEvents =>
+  //       this.setState({
+  //         events: parsedEvents
+  //       })
+  //     );
+  // };
 
   getUserEvents = id => {
     return eventsAPIManager.getUserEvents(id)
-
-    .then(ue => {
-      // console.log("Here's is a note", ue)
-      //   const eventsByDate = ue.sort(function(a, b) {
-      //       return a.date-b.date
-      //   })
-      //   console.log(eventsByDate)
-      this.setState({
-        events: ue
+      .then(pue => {
+        const eventsByDate = pue.sort(function (a, b) {
+          var dateA = new Date(a.date), dateB = new Date(b.date)
+          return dateA - dateB
+        })
+        this.setState({
+          events: eventsByDate
+        })
       })
-  })}
+  }
+
 
   postEvent = eventObject => {
     return eventsAPIManager.postEvent(eventObject)
-      .then(ue =>
-        this.setState({
-          events: ue
-        }))
+      .then(() => this.getUserEvents(sessionStorage.getItem("userId"))
+      )
   }
 
   render() {
@@ -196,9 +199,9 @@ export default class ApplicationViews extends Component {
           exact
           path="/"
           render={props => {
-            return <Login
-            {...props} getUserEvents={this.getUserEvents} getUserTasks={this.getUserTasks}/>
+            return <Login  {...props} getUserEvents={this.getUserEvents} getUserTasks={this.getUserTasks} />
           }}
+
         />
         <Route
           exact
