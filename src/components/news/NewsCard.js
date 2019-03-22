@@ -12,7 +12,7 @@ export default class NewsCard extends Component {
 
     return (
       <div className="card" id="cardID">
-        <div class="card-header">
+        <div className="card-header">
         {this.props.news.title}
         </div>
         <div className="card-body" id="cardBody">

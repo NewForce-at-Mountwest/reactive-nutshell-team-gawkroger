@@ -141,8 +141,8 @@ export default class ApplicationViews extends Component {
       if(sessionStorage.userId !== "" || localStorage.userId !== "") {
       return this.getUserEvents(sessionStorage.getItem("userId"))
       // .then(events => (newState.events = events))
-      .then(tasks => (newState.tasks = tasks))
       .then(TaskManager.getUserTasks)
+      .then(tasks => (newState.tasks = tasks))
       .then(() => this.setState(newState))
   }}
 
