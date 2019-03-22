@@ -7,9 +7,9 @@ export default {
         .then(news => news.json())
         .then((parsedNews => {
             const sortedNews = parsedNews.sort(function(a,b) {
-                return b.timestamp-a.timestamp
+                return a.timeStamp-b.timeStamp
             })
-            console.log(sortedNews);
+            // console.log(sortedNews);
             return sortedNews
         }))
     },

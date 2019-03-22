@@ -1,0 +1,50 @@
+/* Checkboxes: */
+
+.big-checkbox {
+    width: 30px; height: 30px; margin-top: 7px
+}
+
+.small-checkbox {
+    width: 20px; height: 20px; margin-left: 7px;
+}
+
+#card-tasks {
+    align-items: center;
+    width: 25rem;
+    height: auto;
+    padding: 30px;
+
+}
+
+
+/* General Formatting: */
+
+.ptask {
+    text-align: center;
+    align-content: center;
+    font-style: italic;
+}
+
+#task-image {
+    text-align: center;
+    align-content: center;
+    border-radius: 50%;
+    color: black;
+    display:block;
+    margin:auto;
+}
+
+#task-image-2 {
+    text-align: center;
+    align-content: center;
+    border-radius: 50%;
+    color: black;
+    height: 100 px;
+    width: 33%;
+    display:block;
+    margin:auto;
+}
+
+.underline {
+    text-decoration: underline;
+}

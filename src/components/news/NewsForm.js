@@ -18,8 +18,8 @@ export default class NewsForm extends Component {
 
     buildNewsArticle = evt => {
         evt.preventDefault();
-        const dateToFormat = Date.now();
-        console.log(dateToFormat);
+        let dateToFormat = Date.now();
+
         const news = {
             title: this.state.newsTitle,
             synopsis: this.state.newsSynopsis,

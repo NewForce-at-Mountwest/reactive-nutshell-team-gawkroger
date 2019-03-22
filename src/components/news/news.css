@@ -13,7 +13,7 @@
 }
 
 #cardID {
-    height: 62vh;
+    height: 400px;
     width: 75vw;
     overflow-y: scroll;
     /* background-color: #a38b61; */
@@ -24,7 +24,7 @@
 }
 
 #cardIDD {
-    height: 5vh;
+    height: 62vh;
     width: 75vw;
     overflow-y: scroll;
     /* background-color: #a38b61; */
@@ -37,14 +37,14 @@
 /* .card {
     height: 200px;
 } */
-
+/*
 #card-body {
     height: 75vh;
 }
 
 #cardBodyD {
     height: 75vh;
-}
+} */
 
 .newsButton {
 
