@@ -5,7 +5,9 @@ export default class NewsForm extends Component {
     state = {
         newsTitle: "",
         newsSynopsis: "",
-        newsURL: ""
+        newsURL: "",
+        newsUserId: "",
+        newsTs: ""
     };
 
     handleFieldChange = evt => {
@@ -16,11 +18,19 @@ export default class NewsForm extends Component {
 
     buildNewsArticle = evt => {
         evt.preventDefault();
+        let dateToFormat = Date.now();
+
         const news = {
             title: this.state.newsTitle,
             synopsis: this.state.newsSynopsis,
-            url: this.state.newsURL
+            url: this.state.newsURL,
+            userId: sessionStorage.getItem("userId"),
+            timeStamp: dateToFormat
+
         };
+        // console.log(news);
+
+
 
     this.props
         .addNews(news)

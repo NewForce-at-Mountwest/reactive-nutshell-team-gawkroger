@@ -4,14 +4,34 @@
     max-height: 80vh;
     overflow-y: scroll;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+
 }
 
-.card {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 10px;
+#newsHead {
+    margin-top: 1em;
 }
+
+#cardID {
+    height: 33vh;
+    width: 75vw;
+    overflow-y: scroll;
+    border: 1px solid #b70a01;
+    text-align: center;
+    /* box-sizing: border-box; */
+    margin-bottom: 1em;
+}
+
+#cardIDD {
+    height: 62vh;
+    width: 75vw;
+    overflow-y: scroll;
+    border: 1px solid #b70a01;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+}
+
 
 .newsButton {
 

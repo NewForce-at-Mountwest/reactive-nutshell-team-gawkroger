@@ -10,8 +10,8 @@ const news =
     ) || {};
   return (
 <section className="news-section">
-<div key={news.id} className="card">
-    <div className="card-body">
+<div key={news.id} className="card" id="cardIDD">
+    <div className="card-body" id="CardBodyD">
         <h5 className="card-title">{news.title}</h5>
           <a href={news.url} alt="news link">{news.url}</a>
           <p>{news.synopsis}</p>

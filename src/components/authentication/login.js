@@ -44,7 +44,7 @@ export default class Login extends Component {
         else {
             userManager.checkUserEmail(this.state.userEmail)
                 .then(su => {
-                    console.log(su)
+                    // console.log(su)
                     if (su[0].length === 0) {
                         alert("That email address was not found. Please try to register or use a different email.")
                     } if

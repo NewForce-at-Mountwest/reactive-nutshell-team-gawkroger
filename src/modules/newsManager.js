@@ -2,8 +2,16 @@ const remoteURL = "http://localhost:5002"
 
 export default {
     getAll: () => {
-        return fetch(`${remoteURL}/news`)
-        .then(news => news.json());
+        const actvUserId = sessionStorage.getItem("userId");
+        return fetch(`${remoteURL}/news?userId=${actvUserId}`)
+        .then(news => news.json())
+        .then((parsedNews => {
+            const sortedNews = parsedNews.sort(function(a,b) {
+                return a.timeStamp-b.timeStamp
+            })
+            // console.log(sortedNews);
+            return sortedNews
+        }))
     },
 
     getOne: id => {

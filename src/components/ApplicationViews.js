@@ -12,11 +12,11 @@ import NewsForm from "./news/NewsForm";
 import NewsDetail from "./news/NewsDetail";
 import NewsEditForm from "./news/NewsEditForm";
 import newsManager from "../modules/newsManager";
-import NewsList from "./news/NewsList"
-import EventList from '../components/Events/eventsList'
-import EventForm from '../components/Events/eventForm'
-import EventEditForm from '../components/Events/eventEditForm'
-import eventsAPIManager from '../components/Events/eventsAPIManager'
+import NewsList from "./news/NewsList";
+import EventList from "../components/Events/eventsList";
+import EventForm from "../components/Events/eventForm";
+import EventEditForm from "../components/Events/eventEditForm";
+import eventsAPIManager from "../components/Events/eventsAPIManager";
 
 //// Messages imports ////
 import MessagesList from "./messages/MessagesList"
@@ -37,7 +37,7 @@ export default class ApplicationViews extends Component {
     // Populate the API from JSON (why the arrays / data structure are empty, above).
   };
 
-  isAuthenticated = () => sessionStorage.getItem("userId") !== null
+  isAuthenticated = () => sessionStorage.getItem("userId") !== null;
 
   deleteTask = id => {
     return fetch(`http://localhost:5002/tasks/${id}`, {
@@ -82,17 +82,19 @@ export default class ApplicationViews extends Component {
   };
 
   addNews = newsObject => {
-    return newsManager.addNews(newsObject)
+    return newsManager
+      .addNews(newsObject)
       .then(() => newsManager.getAll())
       .then(news =>
         this.setState({
           news: news
         })
       );
-  }
+  };
 
   updateNews = editedNewsObeject => {
-    return newsManager.updateNews(editedNewsObeject)
+    return newsManager
+      .updateNews(editedNewsObeject)
       .then(() => newsManager.getAll())
       .then(news =>
         this.setState({
@@ -122,8 +124,6 @@ export default class ApplicationViews extends Component {
           });
       };
 
-  //////////////////////////////////////
-  isAuthenticated = () => sessionStorage.getItem("userId") !== null
 
   componentDidMount() {
 
@@ -141,8 +141,8 @@ export default class ApplicationViews extends Component {
       if(sessionStorage.userId !== "" || localStorage.userId !== "") {
       return this.getUserEvents(sessionStorage.getItem("userId"))
       // .then(events => (newState.events = events))
-      .then(tasks => (newState.tasks = tasks))
       .then(TaskManager.getUserTasks)
+      .then(tasks => (newState.tasks = tasks))
       .then(() => this.setState(newState))
   }}
 
@@ -217,9 +217,9 @@ export default class ApplicationViews extends Component {
           path="/news"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsList {...props} news={this.state.news} />
+              return <NewsList {...props} news={this.state.news} />;
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -227,9 +227,9 @@ export default class ApplicationViews extends Component {
           path="/news/new"
           render={props => {
             if (this.isAuthenticated()) {
-              return <NewsForm {...props} addNews={this.addNews} />
+              return <NewsForm {...props} addNews={this.addNews} />;
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -244,9 +244,9 @@ export default class ApplicationViews extends Component {
                   deleteNews={this.deleteNews}
                   news={this.state.news}
                 />
-              )
+              );
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -255,21 +255,23 @@ export default class ApplicationViews extends Component {
           render={props => {
             if (this.isAuthenticated()) {
               return (
-                <NewsEditForm {...props}
+                <NewsEditForm
+                  {...props}
                   updateNews={this.updateNews}
                   news={this.state.news}
                 />
-              )
+              );
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
 
         <Route
-          path="/friends" render={props => {
+          path="/friends"
+          render={props => {
             if (this.isAuthenticated()) {
-              return null
+              return null;
               // Remove null and return the component which will show list of friends
             }
           }}
@@ -281,7 +283,7 @@ export default class ApplicationViews extends Component {
             if (this.isAuthenticated()) {
               return <MessagesList {...props} messages={this.state.messages} addMessage={this.addMessage} updateMessages={this.updateMessages} />;
             } else {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             }
           }}
         />
@@ -372,7 +374,6 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-
       </React.Fragment>
     );
   }

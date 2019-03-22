@@ -8,12 +8,7 @@ return (
     <React.Fragment>
 
        <section className="news-section">
-       {this.props.news.map(singleNewsArticle => (
-           <NewsCard key={singleNewsArticle.id} news={singleNewsArticle}/>
-
-       ))}
-
-       </section>
+       <h1 id="newsHead">Saved News Articles</h1>
        <div className="newsButton">
         <button type="button"
         className="btn btn-success news-btn"
@@ -24,6 +19,13 @@ return (
         Add News
         </button>
        </div>
+              {this.props.news.map(singleNewsArticle => (
+           <NewsCard key={singleNewsArticle.id} news={singleNewsArticle}/>
+
+       ))}
+
+       </section>
+
     </React.Fragment>
 )
 }
