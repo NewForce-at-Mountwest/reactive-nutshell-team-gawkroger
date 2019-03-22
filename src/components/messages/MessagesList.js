@@ -5,7 +5,8 @@ export default class MessagesList extends Component {
     state = {
         userId: "",
         userMessage: "",
-        messageToEdit: {}
+        messageToEdit: {},
+        userEditMessage: ""
     };
 
     handleFieldChange = evt => {
@@ -27,8 +28,8 @@ export default class MessagesList extends Component {
     editMessage = evt => {
         evt.preventDefault();
         const editedMessage = {
-            message: this.state.messageToEdit.message,
-            userId: this.state.messageToEdit.UserId,
+            message: this.state.userEditMessage,
+            userId: this.state.messageToEdit.userId,
             id: this.state.messageToEdit.id
         };
         this.props.updateMessages(editedMessage)
@@ -52,20 +53,21 @@ export default class MessagesList extends Component {
                             const sessionId = parseInt(sessionStorage.getItem(`userId`));
                             if (singleMessage.userId === sessionId) {
                                 if (singleMessage.id === this.state.messageToEdit.id) {
-                                    console.log(singleMessage)
-                                    return <div><input
+                                    return <div key={this.state.messageToEdit.id}><input
                                         type="text"
                                         required
                                         className="form-control"
                                         onChange={this.handleFieldChange}
+                                        // This is creating an object in state,
                                         id="userEditMessage"
-                                        value={this.state.messageToEdit.userMessage}
+                                        placeholder={this.state.messageToEdit.message}
+                                        // value={this.state.messageToEdit.message}
                                     />
                                         <button
                                             type="submit"
                                             onClick={this.editMessage}
                                             className="btn btn-primary"
-                                        ></button></div>
+                                        >Submit New Edit</button></div>
                                 } else {
                                 return <p className={singleMessage.id} key={singleMessage.id}>{singleMessage.user.name}:{singleMessage.message}
                                     <button

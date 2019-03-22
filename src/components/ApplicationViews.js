@@ -69,7 +69,7 @@ export default class ApplicationViews extends Component {
 
   updateMessages = editedMessageObject => {
         return MessagesManager.put(editedMessageObject)
-          .then(() => MessagesManager.getAll())
+          .then(() => MessagesManager.getAllMessages())
           .then(messages => {
             this.setState({
               messages: messages
